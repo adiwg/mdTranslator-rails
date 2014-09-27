@@ -1,0 +1,118 @@
+<span id="forkongithub">
+	<a href="https://github.com/adiwg/mdTranslator">Fork me on GitHub</a>
+</span>
+
+<h2 id="mainHeader">
+	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
+	<span>Demo</span>
+	<span class="version">Alpha</span>
+</h2>
+
+<div id="form_container">
+	<h1><a>Submit JSON</a></h1>
+
+	<%= form_tag("/api/v1", id: "submitJSON") do %>
+		<div class="form_description">
+			<h2>Submit JSON</h2>
+			<p>
+				Paste or type JSON and click Submit. Valid ISO 19115-2 XML should be generated. For more info visit the
+				<a href="http://www.adiwg.org/mdTranslator">mdTranslator website</a>.
+			</p>
+		</div>
+		<ul>
+			<li id="li_2">
+				<label class="description" for="element_2">Reader</label>
+				<div>
+					<select class="element select medium" id="element_2" name="reader">
+						<option value="adiwgJson" selected="selected">adiwgJson</option>
+					</select>
+				</div>
+				<p class="guidelines" id="guide_2">
+					<small>Select a Reader</small>
+				</p>
+			</li>
+
+			<li id="li_3">
+				<label class="description" for="element_3">Writer</label>
+				<div>
+					<select class="element select medium" id="element_3" name="writer">
+						<option value="iso19115_2" selected="selected">iso19115_2</option>
+						<option value="">-none-</option>
+					</select>
+				</div>
+				<p class="guidelines" id="guide_2">
+					<small>Select a Writer</small>
+				</p>
+			</li>
+
+			<li id="li_4">
+				<label class="description" for="element_4">Include Empty Tags</label>
+				<div>
+					<select class="element select medium" id="element_4" name="showAllTags">
+						<option value="false" selected="selected">False</option>
+						<option value="true">True</option>
+					</select>
+				</div>
+				<p class="guidelines" id="guide_2">
+					<small>Select true or false</small>
+				</p>
+			</li>
+
+			<li id="li_5">
+				<label class="description" for="element_5">Input Validation</label>
+				<div>
+					<select class="element select medium" id="element_5" name="validate">
+						<option value="none">None</option>
+						<option value="normal" selected="selected">Normal</option>
+						<option value="normal">Strict</option>
+					</select>
+				</div>
+				<p class="guidelines" id="guide_2">
+					<small>Select validation level</small>
+				</p>
+			</li>
+
+			<li id="li_6">
+				<label class="description" for="element_6">Response Format</label>
+				<div>
+					<select class="element select medium" id="element_6" name="format">
+						<option value="auto" selected="selected">Auto</option>
+						<option value="plain">Plain</option>
+						<option value="json">JSON</option>
+						<option value="xml">XML</option>
+					</select>
+				</div>
+				<p class="guidelines" id="guide_2">
+					<small>Select a response format</small>
+				</p>
+			</li>
+
+			<li id="li_7">
+				<label class="description" for="element_7">Callback Name</label>
+				<div>
+					<input type="text" name="callback"/>
+				</div>
+				<p class="guidelines" id="guide_2">
+					<small>Enter a callback name to receive a JSONp response</small>
+				</p>
+			</li>
+
+			<li id="li_1">
+				<label class="description" for="element_1">JSON</label>
+				<div>
+					<textarea id="element_1" name="file" class="element textarea large"><%= @jsonDemo %></textarea>
+				</div>
+				<p class="guidelines" id="guide_1">
+					<small>Put your JSON here</small>
+				</p>
+			</li>
+
+			<li class="buttons">
+				<input type="hidden" name="form_id" value="759352"/>
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>
+			</li>
+		</ul>
+	<% end %>
+
+</div>
+
