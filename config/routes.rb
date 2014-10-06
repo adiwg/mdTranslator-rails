@@ -14,8 +14,16 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 	resources :tests
+  
+  namespace :api do
+    namespace :v1 do
+      resource :translator
+    end
+  end
 
-	resources :v1,  path: '/api/v1'
+	resources :options, path: '/api/v1/options'
+
+	resources :v1,  path: '/api/v1'  
 
 
   # Example resource route with options:
