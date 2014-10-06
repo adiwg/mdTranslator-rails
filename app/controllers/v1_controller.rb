@@ -12,8 +12,16 @@
 #   Josh Bradley 2013-12-28 implementation of demo website
 # 	Stan Smith 2014-09-05 migration to Rails 4.1.1 for implementation
 
-require 'adiwg-mdtranslator'
-require 'redcarpet'
+# require 'adiwg-mdtranslator'
+# require 'redcarpet'
+# Don't require these in the controller, require is not multi-thread safe
+# In general the gem should require itself automatically when using bundler and Gemfiles
+# If for some reason it doesn't then you will need to add a custom require in one of two places.
+# 1. Add a require: 'libfilename' to the Gemfile for the gem being loaded.
+#     I.E.  gem 'adiwg-mdtranslator', require: 'adiwg-mdtranslator'
+# 2. or add the require to the config/application.rb, this gets loaded once when the 
+#     application starts which won't run into problems when running in a multi-threaded 
+#     environment.
 
 class V1Controller < ApplicationController
 

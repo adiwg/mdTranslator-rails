@@ -40,6 +40,11 @@ gem 'adiwg-mdtranslator', '~> 0.8'
 # Use redcarpet to render with markdown
 gem 'redcarpet'
 
+# Use redcarpet to render with markdown
+# gem 'redcarpet'
+gem 'rdiscount'
+gem 'haml'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
