@@ -12,24 +12,30 @@
 #   Josh Bradley 2013-12-28 implementation of demo website
 # 	Stan Smith 2014-09-05 migration to Rails 4.1.1 for implementation
 
-require 'adiwg-mdtranslator'
+
+# require 'adiwg-mdtranslator'
+# require 'redcarpet'
+# Don't require these in the controller, require is not multi-thread safe
+# In general the gem should require itself automatically when using bundler and Gemfiles
+# If for some reason it doesn't then you will need to add a custom require in one of two places.
+# 1. Add a require: 'libfilename' to the Gemfile for the gem being loaded.
+#     I.E.  gem 'adiwg-mdtranslator', require: 'adiwg-mdtranslator'
+# 2. or add the require to the config/application.rb, this gets loaded once when the 
+#     application starts which won't run into problems when running in a multi-threaded 
+#     environment.
 
 class V1Controller < ApplicationController
 
 	skip_before_action :verify_authenticity_token
 
-	# GETs
-	# defaults to 'index.html.erb' which documents the API
+	markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
 
-	def show
-		if params[:id] == 'options'
-			# return json formatted list of options
-	        if params[:callback] == ''
-				render 'show.json.erb'
-			else
-				s = '{"readers": ["adiwgJson"], "writers": ["iso19115_2"], "formats": ["auto","plain","json","xml"]}'
-				render json: s, callback: params[:callback]
-			end
+	# GETs
+	def index
+		readerName = params[:reader] if params[:reader]
+		writerName = params[:writer] if params[:writer]
+		if readerName == 'adiwgJson'
+			render 'adiwgJsonR.html.erb'
 		end
 	end
 
@@ -47,7 +53,6 @@ class V1Controller < ApplicationController
 			showAllTags = true
 		end
 		format = params[:format]
-		callback = params[:callback]
 
 		# call the ADIwg metadata translator
 		@mdReturn = ADIWG::Mdtranslator.translate(fileObj, readerName, writerName, validation, showAllTags)
