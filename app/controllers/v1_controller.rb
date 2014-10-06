@@ -12,7 +12,6 @@
 #   Josh Bradley 2013-12-28 implementation of demo website
 # 	Stan Smith 2014-09-05 migration to Rails 4.1.1 for implementation
 
-
 # require 'adiwg-mdtranslator'
 # require 'redcarpet'
 # Don't require these in the controller, require is not multi-thread safe

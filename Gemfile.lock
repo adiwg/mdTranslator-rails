@@ -87,6 +87,7 @@ GEM
     rdiscount (2.1.6)
     rdoc (4.1.2)
       json (~> 1.4)
+    redcarpet (3.1.2)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)

@@ -23,8 +23,7 @@ Rails.application.routes.draw do
 
 	resources :options, path: '/api/v1/options'
 
-	resources :v1,  path: '/api/v1'  
-
+	resources :v1,  path: '/api/v1'
 
   # Example resource route with options:
   #   resources :products do
