@@ -13,23 +13,20 @@
 # 	Stan Smith 2014-09-05 migration to Rails 4.1.1 for implementation
 
 require 'adiwg-mdtranslator'
+require 'redcarpet'
 
 class V1Controller < ApplicationController
 
 	skip_before_action :verify_authenticity_token
 
-	# GETs
-	# defaults to 'index.html.erb' which documents the API
+	markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
 
-	def show
-		if params[:id] == 'options'
-			# return json formatted list of options
-	        if params[:callback] == ''
-				render 'show.json.erb'
-			else
-				s = '{"readers": ["adiwgJson"], "writers": ["iso19115_2"], "formats": ["auto","plain","json","xml"]}'
-				render json: s, callback: params[:callback]
-			end
+	# GETs
+	def index
+		readerName = params[:reader] if params[:reader]
+		writerName = params[:writer] if params[:writer]
+		if readerName == 'adiwgJson'
+			render 'adiwgJsonR.html.erb'
 		end
 	end
 
@@ -47,7 +44,6 @@ class V1Controller < ApplicationController
 			showAllTags = true
 		end
 		format = params[:format]
-		callback = params[:callback]
 
 		# call the ADIwg metadata translator
 		@mdReturn = ADIWG::Mdtranslator.translate(fileObj, readerName, writerName, validation, showAllTags)

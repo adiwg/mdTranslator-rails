@@ -27,7 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    adiwg-json_schemas (0.8.0)
+    adiwg-json_schemas (0.8.1)
     adiwg-mdtranslator (0.8.0)
       adiwg-json_schemas (~> 0.8)
       builder (~> 3.2)
@@ -60,7 +60,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    minitest (5.4.1)
+    minitest (5.4.2)
     multi_json (1.10.1)
     polyglot (0.3.5)
     rack (1.5.2)
@@ -84,6 +84,7 @@ GEM
     rake (10.3.2)
     rdoc (4.1.2)
       json (~> 1.4)
+    redcarpet (3.1.2)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -109,11 +110,11 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.3.0)
+    turbolinks (2.4.0)
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2014.7)
+    tzinfo-data (1.2014.8)
       tzinfo (>= 1.0.0)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
@@ -133,6 +134,7 @@ DEPENDENCIES
   json
   json-schema
   rails (= 4.1.1)
+  redcarpet
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   sqlite3

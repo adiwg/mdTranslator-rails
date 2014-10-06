@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   #   resources :products
 	resources :tests
 
+	resources :options, path: '/api/v1/options'
+
 	resources :v1,  path: '/api/v1'
 
 
