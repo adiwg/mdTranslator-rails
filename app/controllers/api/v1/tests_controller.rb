@@ -1,0 +1,17 @@
+# Alaska Data Integration working group - ADIwg
+
+# REST endpoint controller for description of api
+
+# History:
+# 	Stan Smith 2013-10-09 initial
+
+class Api::V1::TestsController < ApplicationController
+
+		# GET /tests
+		def show
+			file = File.open('lib/assets/adiwgJson_full_test_example.json', 'r')
+			@jsonDemo = file.read
+			file.close
+		end
+
+end

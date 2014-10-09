@@ -5,5 +5,13 @@
 # History:
 # 	Stan Smith 2013-10-09 initial
 
-class WelcomeController < ApplicationController
+class Api::ReadersController < ApplicationController
+
+	# GET /api/readers
+	def index
+		respond_to do |format|
+			format.html
+		end
+	end
+
 end

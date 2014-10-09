@@ -1,0 +1,36 @@
+<!--
+# Alaska Data Integration working group - ADIwg
+
+# REST endpoint controller for description of api
+
+# History:
+# 	Stan Smith 2013-10-09 initial
+-->
+
+<h2 id="mainHeader">
+	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
+	<span>API</span>
+	<span class="version">adiwgJson Reader</span>
+</h2>
+
+<%
+   doc = <<-MARKDOWN
+
+## adiwgJson
+
+### Reader for ADIwg JSON metadata format
+
+The adiwgJson format is a simple JSON format for documenting and exchanging information
+about scientific projects and data.  The Alaska Data Integration working group (ADIwg) wrote the
+standard to support translation to complex standards such as the ISO 19115-2 Geographic Metadata standard
+and FGDC's Content Standard for Digital Geospatial Metadata.  The adiwgJson standard
+remains independent of any published standards while comprehensive enough to support translation
+to many. The adiwgJson standard is also a convenient format to exchange directly with other organizations as
+the JSON structure is easier read and ingest by many programming languages.
+
+The adiwg format is fully documented on the interactive
+[adiwgJson Viewer](http://jlblcc.github.io/json-schema-viewer/) website.
+
+MARKDOWN
+%>
+<%= Kramdown::Document.new(doc).to_html.html_safe %>

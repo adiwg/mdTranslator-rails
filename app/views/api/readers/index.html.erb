@@ -1,0 +1,27 @@
+<!--
+# Alaska Data Integration working group - ADIwg
+
+# REST endpoint controller for description of api
+
+# History:
+# 	Stan Smith 2013-10-09 initial
+-->
+
+<h2 id="mainHeader">
+	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
+	<span>API</span>
+	<span class="version">Readers</span>
+</h2>
+
+<%
+   doc = <<-MARKDOWN
+
+## List of available readers for mdTranslator
+
+ [adiwgJson](./readers/adiwgJson)
+
+ : Alaska Data Integration working group JSON metadata format
+
+MARKDOWN
+%>
+<%= Kramdown::Document.new(doc).to_html.html_safe %>

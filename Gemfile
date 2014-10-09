@@ -37,13 +37,10 @@ gem 'json-schema'
 gem 'adiwg-json_schemas', '~> 0.8'
 # Alaska Data Integration working group metadata translator
 gem 'adiwg-mdtranslator', '~> 0.8'
-# Use redcarpet to render with markdown
-gem 'redcarpet'
 
-# Use redcarpet to render with markdown
-# gem 'redcarpet'
-gem 'rdiscount'
-gem 'haml'
+# Use kramdown to render markdown with help of coderay
+gem 'kramdown'
+gem 'coderay'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

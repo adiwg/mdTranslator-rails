@@ -1,85 +1,59 @@
+<!--
+# Alaska Data Integration working group - ADIwg
+
+# REST endpoint controller for description of api
+
+# History:
+# 	Stan Smith 2013-10-09 initial
+-->
 
 <h2 id="mainHeader">
 	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
 	<span>API</span>
-	<span class="version">HTML GET</span>
+	<span class="version">Welcome</span>
 </h2>
 
-<div class="divText">
-	<h2>GET</h2>
-	<ul>
-		<li>
-			<span class="divTextHeavy">.../api/v1</span> # returns documentation of version 1 API
-		</li>
-		<li>
-			<span class="divTextHeavy">.../api/v1/options</span> # returns JSON formatted lists of options intended for support loading selection lists in automated tools; <br>
-			returns readers, writers, and request formats, <br>
-			supports callback option for JSONp
-		</li>
-		<li>
-			<span class="divTextHeavy">.../api/v1?{options}</span> # see GET options list
-		</li>
-	</ul>
-	<h2>GET Options:</h2>
-	<ul>
-		<li>
-			<span class="divTextHeavy">reader= (string)</span> # returns documentation on the specified reader
-		</li>
-		<li>
-			<span class="divTextHeavy">writer= (string)</span> # returns documentation on the specified writer
-		</li>
-	</ul>
-	<br>
-	<h2>POST</h2>
-	<ul>
-		<li>
-			<span class="divTextHeavy">.../api/v1?{options}</span> # see POST options list
-		</li>
-		<li>
-			<span class="divTextHeavy">.../api/v1/{reader}?{options}</span> # use the specified reader to validate input, no metadata generated
-		</li>
-		<li>
-			<span class="divTextHeavy">.../api/v1/{reader}/{writer}?{options}</span> # use the specified reader and writer to generate metadata
-		</li>
-	</ul>
-	<h2>POST Options:</h2>
-	<ul>
-		<li>
-			<span class="divTextHeavy">reader= (string)</span> # specify a reader for the metadata translator; required
-		</li>
-		<li>
-			<span class="divTextHeavy">writer= (string)</span> # specify a writer for the metadata translator; nil writer validates input only
-		</li>
-		<li>
-			<span class="divTextHeavy">validate= [none | <u>normal</u> | strict]</span> # level of input validation
-		</li>
-		<li>
-			<span class="divTextHeavy">showAllTags= [true | <u>false</u>]</span> # creates empty tags for attributes not populated by input
-		</li>
-		<li>
-			<span class="divTextHeavy">format= [<u>auto</u> | plain | json | xml]</span> # see below:
-		</li>
-		<ul>
-			<li>
-				--auto, detect type of return from writer and set content-type accordingly; <br>
-				if a writer was not specified the content-type will be set to 'text/plain'; <br>
-				if validation errors prevent the writer from being called, messages will be returned in 'text/plain'; <br>
-				if error messages are returned from the writer, a wrapper will be added of content-type matching the writer output.
-			</li>
-			<li>
-				--plain, content-type="text/plain"; <br>
-				if validation or translator messages are detected, only the messages will be returned
-			</li>
-			<li>
-				--json, add json wrapper, set content-type="application/json"
-			</li>
-			<li>
-				--xml, add xml wrapper, set content-type="application/xml; charset=utf-8"
-			</li>
-		</ul>
-		<li>
-			<span class="divTextHeavy">callback= (string)</span> # default=null, when a name is provided, use JSONp with callback name provided, set content-type="application/javascript"
-		</li>
-	</ul>
+<%
+   doc = <<-MARKDOWN
 
-</div>
+## Welcome to the mdTranslator
+
+The ADIwg mdTranslator (or metadata translator) is an open-source software project for
+translation between metadata standards.  The user prepares metadata in one of the
+mdTranslator's supported 'reader' formats, POSTs the input to the mdTranslator, and
+receives output in one of the mdTranslator's support 'writer' formats.
+
+## Links
+
+ * List of mdTranslator's supported [readers](./api/readers)
+ * List of mdTranslator's supported [writers](./api/writers)
+ * Documentation of the mdTranslator's version 1 [API](./api/v1)
+ * [Home page](http://www.adiwg.org/mdTranslator/) for the mdTranslator project
+ * GitHub [repositories](https://github.com/adiwg)  for the mdTranslator project
+
+## Background
+
+The Alaska Data Integration Workgroup (ADIwg) evolved from, and supports the common interests
+of the North Slope Science Initiative (NSSI), Alaska Ocean Observing System
+Board (AOOS), North Pacific Research Board (NPRB), and the Alaska Climate Change Executive
+Roundtable (ACCER) and their member universities, federal and state agencies.  ADIwg's
+mission is to address the complex issues of discovery and access of scientific data across
+organizations of varying size and technical abilities.
+
+Development of an open-source toolkit for creation of ISO metadata was undertaken by the
+U.S. Geological Survey (USGS), Arctic Landscape Conservation Cooperative (ALCC), Alaska
+Ocean Observing Systems (AOOS), Nuna Technologies, and the National Climate Change Wildlife
+Science Centers (NCCWSC - USGS).  These organizations developed an extensible metadata toolkit
+in three parts:
+
+ * __adiwgJson__ - a simple JSON format for scientific metadata that fully supports ISO 19115-2
+ and FGDC metadata standards.
+ * __mdTranslator__ - a public hosted web service for translation of adiwgJson to other metadata
+ standards.  The mdTranslator is also available as a Ruby Gem 'adiwg-mdtranslator' or Ruby
+ language code from the GitHub repository.
+ * __mdEditor__ - an online metadata editor for preparation and maintenance of scientific
+ metadata in the adiwgJson format.
+
+MARKDOWN
+%>
+<%= Kramdown::Document.new(doc).to_html.html_safe %>

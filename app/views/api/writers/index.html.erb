@@ -1,0 +1,27 @@
+<!--
+# Alaska Data Integration working group - ADIwg
+
+# REST endpoint controller for description of api
+
+# History:
+# 	Stan Smith 2013-10-09 initial
+-->
+
+<h2 id="mainHeader">
+	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
+	<span>API</span>
+	<span class="version">Writers</span>
+</h2>
+
+<%
+   doc = <<-MARKDOWN
+
+## List of available readers for mdTranslator
+
+ [iso19115_2](./writers/iso19115_2)
+
+ : International Standards Organization Geographic Information - Metadata 19115-2:2009
+
+MARKDOWN
+%>
+<%= Kramdown::Document.new(doc).to_html.html_safe %>
