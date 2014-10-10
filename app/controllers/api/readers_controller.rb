@@ -22,7 +22,7 @@ class Api::ReadersController < ApplicationController
 
 		# get text for shhow body from mdTranslator readme file
 		path = ADIWG::Mdtranslator.path_to_resources
-		file = File.open(File.join(path, 'readers', @reader, 'readme.txt'), 'r')
+		file = File.open(File.join(path, 'readers', @reader, 'readme.md'), 'r')
 		@readerBody = file.read
 		file.close
 	end

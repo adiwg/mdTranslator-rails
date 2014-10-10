@@ -8,7 +8,8 @@
 
 class Api::WritersController < ApplicationController
 
-	# GET /api/writers
+	# GET
+	# .../api/writers
 	def index
 		respond_to do |format|
 			format.html
@@ -21,7 +22,7 @@ class Api::WritersController < ApplicationController
 
 		# get text for shhow body from mdTranslator readme file
 		path = ADIWG::Mdtranslator.path_to_resources
-		file = File.open(File.join(path, 'writers', @writer, 'readme.txt'), 'r')
+		file = File.open(File.join(path, 'writers', @writer, 'readme.md'), 'r')
 		@writerBody = file.read
 		file.close
 	end
