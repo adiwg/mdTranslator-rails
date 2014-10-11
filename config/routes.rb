@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 			resource :api
 			resource :options
 			resource :translator
-			resource :tests
+			resource :demo
 		end
 	end
 

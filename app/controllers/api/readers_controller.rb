@@ -4,7 +4,8 @@
 
 # History:
 # 	Stan Smith 2014-10-09 initial
-#   Stan Smith 2014-10-10 import show text body from mdTranslator readme file
+#   Stan Smith 2014-10-10 get text body for 'show' from mdTranslator readme file
+#   Stan Smith 2014-10-11 changed method of getting readme text from mdTranslator
 
 class Api::ReadersController < ApplicationController
 
@@ -18,13 +19,9 @@ class Api::ReadersController < ApplicationController
 
 	# .../api/readers/{:id}
 	def show
+		# get text for show body from mdTranslator readme file
 		@reader = params[:id]
-
-		# get text for shhow body from mdTranslator readme file
-		path = ADIWG::Mdtranslator.path_to_resources
-		file = File.open(File.join(path, 'readers', @reader, 'readme.md'), 'r')
-		@readerBody = file.read
-		file.close
+		@readerBody = ADIWG::Mdtranslator.get_reader_readme(@reader)
 	end
 
 end

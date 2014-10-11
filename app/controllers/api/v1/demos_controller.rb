@@ -5,7 +5,7 @@
 # History:
 # 	Stan Smith 2014-10-09 initial
 
-class Api::V1::TestsController < ApplicationController
+class Api::V1::DemosController < ApplicationController
 
 		# GET /tests
 		def show
