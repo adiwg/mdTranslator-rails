@@ -28,7 +28,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     adiwg-json_schemas (0.8.1)
-    adiwg-mdtranslator (0.8.5)
+    adiwg-mdtranslator (0.8.6)
       adiwg-json_schemas (~> 0.8)
       builder (~> 3.2)
       json (~> 1.8)
@@ -46,7 +46,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     erubis (2.7.0)
-    execjs (2.2.1)
+    execjs (2.2.2)
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.2.2)
@@ -64,6 +64,8 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.2)
     multi_json (1.10.1)
+    pg (0.17.1)
+    pg (0.17.1-x64-mingw32)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -78,6 +80,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.1)
       sprockets-rails (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.2)
+    rails_stdout_logging (0.0.3)
     railties (4.1.1)
       actionpack (= 4.1.1)
       activesupport (= 4.1.1)
@@ -104,8 +111,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sqlite3 (1.3.9)
-    sqlite3 (1.3.9-x64-mingw32)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -138,10 +143,11 @@ DEPENDENCIES
   json
   json-schema
   kramdown
+  pg
   rails (= 4.1.1)
+  rails_12factor
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
-  sqlite3
   thor
   turbolinks
   tzinfo-data
