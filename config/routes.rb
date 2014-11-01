@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 			get '/' => 'apis#show'
 			resource :api
 			resource :options
+			get 'translator' => 'translators#create', :as => :translator
 			resource :translator
 			resource :demo
 		end
