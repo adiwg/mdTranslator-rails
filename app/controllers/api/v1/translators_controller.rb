@@ -11,7 +11,7 @@
 # 	Stan Smith 2013-08-09 proof of concept
 #   Josh Bradley 2013-12-28 implementation of demo website
 # 	Stan Smith 2014-09-05 migration to Rails 4.1.1 for implementation
-#   Stan Smith 2014-10-09 implemented changes suggested by Will Fisher
+#   Stan Smith 2014-10-09 implemented changes suggested by Will Fisher, UAF
 #   Stan Smith 2014-10-09 version 1 ready
 
 class Api::V1::TranslatorsController < ApplicationController
@@ -34,7 +34,8 @@ class Api::V1::TranslatorsController < ApplicationController
 		if params[:showAllTags] == 'true'
 			showAllTags = true
 		end
-		format = params[:format]
+		format = 'auto'
+		format = params[:format] if params[:format]
 
 		# call the ADIwg metadata translator
 		@mdReturn = ADIWG::Mdtranslator.translate(fileObj, readerName, writerName, validation, showAllTags)
