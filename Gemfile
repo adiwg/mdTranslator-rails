@@ -65,4 +65,5 @@ gem 'coderay'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 #assets for heroku
 gem 'rails_12factor', group: :production
-
+#CORS support
+gem 'rack-cors'
