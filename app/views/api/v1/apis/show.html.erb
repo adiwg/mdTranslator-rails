@@ -7,11 +7,12 @@
 # 	Stan Smith 2014-10-09 initial
 #   Stan Smith 2014-10-11 added reference to api/v1/api as alternate link
 #   Stan Smith 2014-10-11 changed test resource to demo and added reference
+#   Stan Smith 2014-11-03 added codeList support
 -->
 
 <h2 id="mainHeader">
 	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
-	<span>API</span>
+	<span>API version 1</span>
 	<span class="version">Reference</span>
 </h2>
 
@@ -20,17 +21,25 @@ doc = <<-MARKDOWN
 
 ## GET
 
- * __.../__ # returns the welcome page with information and links about the mdTranslator
+ * __.../__ # returns the welcome page with information and links about the mdTranslator <br>
+ <br>
+ * __.../api/readers__ # returns a list of support mdTranslator readers
+ * __.../api/readers/{reader}__ # returns documentation for a specific mdTranslator reader
+ * __.../api/writers__ # returns a list of support mdTranslator readers
+ * __.../api/writers/{writer}__ # returns documentation for a specific mdTranslator reader
+ * __.../api/codelists__ # returns a JSON or XML object will all codeLists supported in mdJSON <br>
+ 	use option format="xml" to return an ISO Codelist Catalogue <br>
+ 	use option format="json" to return a JSON object with codeLists for for loading mdEditors <br>
+ 	add option callback="{callbackName}" with format="json" for JSONp
+ * __.../api/codelists/{codeListName}__ # returns a JSON object with the requested codeList <br>
+ 	use option callback="{callbackName}" for JSONp <br>
+ <br>
  * __.../api/v1__ # returns documentation on the mdTranslator version 1 API
  * __.../api/v1/api__ # returns documentation on the mdTranslator version 1 API (alternate link)
- * __.../api/v1/demo__ # returns page to view and test mdTranslator options
  * __.../api/v1/options__ # returns a JSON object with all supported mdTranslator options; <br>
- intended for loading selection lists in automated tools; <br>
- supports callback option for JSONp
- * __.../api/v1/readers__ # returns a list of support mdTranslator readers
- * __.../api/v1/readers/{reader}__ # returns documentation for a specific mdTranslator reader
- * __.../api/v1/writers__ # returns a list of support mdTranslator readers
- * __.../api/v1/writers/{writer}__ # returns documentation for a specific mdTranslator reader
+	intended for loading mdTranslator option lists into automated tools; <br>
+ 	use option callback="{callbackName}" for JSONp
+ * __.../api/v1/demo__ # returns page to view and test mdTranslator options
 
 ## POST
 
@@ -38,6 +47,9 @@ doc = <<-MARKDOWN
 
 ## POST Options
 
+> __file__= (string) required
+ : the input string in the format specified by the reader option
+>
 > __reader__= (string) required
  : specifies a reader for the mdTranslator
 >

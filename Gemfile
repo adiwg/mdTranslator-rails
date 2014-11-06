@@ -26,7 +26,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 # gems required for ADIwg mdTranslator ...
 # Use json as JSON
@@ -43,6 +43,8 @@ gem 'json-schema'
 gem 'adiwg-json_schemas', '~> 0.8'
 # Alaska Data Integration working group metadata translator
 gem 'adiwg-mdtranslator', '~> 0.8'
+# Alaska Data Integration working group metadata code lists
+gem 'adiwg-mdcodes', '~> 0.1'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'

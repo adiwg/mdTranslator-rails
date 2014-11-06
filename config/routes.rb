@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 	root 'welcome#index'
 
 	namespace :api do
+		get '/' => 'v1/apis#show'
 		resources :readers
 		resources :writers
+		resources :codelists
 		namespace :v1 do
 			get '/' => 'apis#show'
 			resource :api

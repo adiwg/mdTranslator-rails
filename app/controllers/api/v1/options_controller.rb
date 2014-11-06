@@ -7,8 +7,6 @@
 
 class Api::V1::OptionsController < ApplicationController
 
-	skip_before_action :verify_authenticity_token
-
 	# GETs
 
 	def show
