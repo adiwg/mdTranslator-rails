@@ -4,13 +4,19 @@
 
 # History:
 # 	Stan Smith 2014-11-03 initial
+#   Stan Smith 2014-11-07 added namesOnly option
 
 class Api::CodelistsController < ApplicationController
 
 	# GETs
 	def index
 		# return the all codeLists
-		@codeLists = ADIWG::Mdcodes.getCodeLists
+		if params[:namesOnly] == 'true'
+			@codeLists = ADIWG::Mdcodes.getCodeNames
+		else
+			@codeLists = ADIWG::Mdcodes.getCodeLists
+		end
+
 		format = 'json'
 		format = params[:format] if params[:format]
 
@@ -28,12 +34,17 @@ class Api::CodelistsController < ApplicationController
 
 	def show
 		# return individual codeList
-		# only return in JSON or JSONp
-		@codeLists = ADIWG::Mdcodes.getCodeList(params[:id])
-		if params[:callback] == ''
-			render json: @codeLists
+		# only returns in JSON or JSONp
+		if params[:namesOnly] == 'true'
+			@codeList = ADIWG::Mdcodes.getCodeName(params[:id])
 		else
-			render json: @codeLists, callback: params[:callback]
+			@codeList = ADIWG::Mdcodes.getCodeList(params[:id])
+		end
+
+		if params[:callback] == ''
+			render json: @codeList
+		else
+			render json: @codeList, callback: params[:callback]
 		end
 	end
 

@@ -28,10 +28,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     adiwg-json_schemas (0.8.1)
-    adiwg-mdcodes (0.1.0)
-      builder (~> 3.2)
-      json (~> 1.8)
-    adiwg-mdtranslator (0.8.7)
+    adiwg-mdcodes (0.2.0)
+    adiwg-mdtranslator (0.9.0)
       adiwg-json_schemas (~> 0.8)
       builder (~> 3.2)
       json (~> 1.8)
@@ -140,7 +138,7 @@ PLATFORMS
 
 DEPENDENCIES
   adiwg-json_schemas (~> 0.8)
-  adiwg-mdcodes (~> 0.1)
+  adiwg-mdcodes (~> 0.2)
   adiwg-mdtranslator (~> 0.8)
   builder
   coderay

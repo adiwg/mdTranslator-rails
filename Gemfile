@@ -44,7 +44,7 @@ gem 'adiwg-json_schemas', '~> 0.8'
 # Alaska Data Integration working group metadata translator
 gem 'adiwg-mdtranslator', '~> 0.8'
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '~> 0.1'
+gem 'adiwg-mdcodes', '~> 0.2'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'

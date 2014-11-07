@@ -8,6 +8,7 @@
 #   Stan Smith 2014-10-11 added reference to api/v1/api as alternate link
 #   Stan Smith 2014-10-11 changed test resource to demo and added reference
 #   Stan Smith 2014-11-03 added codeList support
+#   Stan Smith 2014-11-07 added option for codeName support
 -->
 
 <h2 id="mainHeader">
@@ -30,9 +31,11 @@ doc = <<-MARKDOWN
  * __.../api/codelists__ # returns a JSON or XML object will all codeLists supported in mdJSON <br>
  	use option format="xml" to return an ISO Codelist Catalogue <br>
  	use option format="json" to return a JSON object with codeLists for for loading mdEditors <br>
+ 	add option namesOnly="true" to return a JSON object with only codeNames with the codeLists<br>
  	add option callback="{callbackName}" with format="json" for JSONp
  * __.../api/codelists/{codeListName}__ # returns a JSON object with the requested codeList <br>
- 	use option callback="{callbackName}" for JSONp <br>
+  	add option namesOnly="true" to return a JSON object with codeNames with the codeList <br>
+	use option callback="{callbackName}" for JSONp <br>
  <br>
  * __.../api/v1__ # returns documentation on the mdTranslator version 1 API
  * __.../api/v1/api__ # returns documentation on the mdTranslator version 1 API (alternate link)
@@ -45,11 +48,13 @@ doc = <<-MARKDOWN
 
  * __.../api/v1/translator?{options}__ # returns metadata from the mdTranslator according to options specified
 
+> __file__ (string) required
+ : the input file to be translated by mdTranslator passed as the body of the HTML POST action. <br>
+    the format of the file must be provided in the 'reader=' option.
+>
+
 ## POST Options
 
-> __file__= (string) required
- : the input string in the format specified by the reader option
->
 > __reader__= (string) required
  : specifies a reader for the mdTranslator
 >
