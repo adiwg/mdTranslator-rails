@@ -6,14 +6,15 @@ Rails.application.routes.draw do
 
 	namespace :api do
 		get '/' => 'v1/apis#show'
+		get 'v1/codelists' => 'codelists#index'
 		resources :readers
 		resources :writers
 		resources :codelists
 		namespace :v1 do
 			get '/' => 'apis#show'
+			get 'translator' => 'translators#create', :as => :translator
 			resource :api
 			resource :options
-			get 'translator' => 'translators#create', :as => :translator
 			resource :translator
 			resource :demo
 		end

@@ -13,6 +13,10 @@
 # 	Stan Smith 2014-09-05 migration to Rails 4.1.1 for implementation
 #   Stan Smith 2014-10-09 implemented changes suggested by Will Fisher, UAF
 #   Stan Smith 2014-10-09 version 1 ready
+#   Stan Smith 2014-11-10 routed empty endpoint api/v1/codelists to api/codelists
+#   Stan Smith 2014-11-10 return all messageObject detail when
+#   ... mdTranslator returns error messages
+#   Stan Smith 2014-11-10 remove absolute path information from error messages
 
 class Api::V1::TranslatorsController < ApplicationController
 
@@ -46,7 +50,7 @@ class Api::V1::TranslatorsController < ApplicationController
 		# collect response content in a hash
 		@responseInfo = {}
 		@responseInfo[:success] = nil
-		@responseInfo[:messages] = []
+		@responseInfo[:messages] = {}
 		@responseInfo[:data] = nil
 
 		# load the data returned from the translator into the response
@@ -59,11 +63,22 @@ class Api::V1::TranslatorsController < ApplicationController
 			@responseInfo[:success] = true
 		else
 			# some validation errors were detected
+			# no input was passed to the translator
+			# no output was received
 			@responseInfo[:success] = false
 
-			# error messages must be handled individually because they may contain '[]' or '{}'
-			# ...which confuse the array methods
+			# pass supplemental information back to assist in error resolution
+			# drop output from the supplemental information
+			# rewrite message to
+			# ... shorten structure message to 1000 characters
+			# ... remove absolute paths from validation messages
+			@responseInfo[:messages] = @mdReturn
+			@responseInfo[:messages].delete(:writerOutput)
+
+			# error messages must be handled individually because some contain '[]' or '{}'
+			# ...which confuses the array methods
 			unless @mdReturn[:readerStructurePass].nil?
+				aMessages = []
 				if @mdReturn[:readerStructurePass]
 					aMessages << "Success - Input structure is valid\n"
 				else
@@ -79,22 +94,33 @@ class Api::V1::TranslatorsController < ApplicationController
 						aMessages << s
 					end
 				end
+				@responseInfo[:messages][:readerStructureMessages] = aMessages
 			end
 
 			unless @mdReturn[:readerValidationPass].nil?
+				aMessages = []
 				if @mdReturn[:readerValidationPass]
 					aMessages << "Success - Input content passes schema definition\n"
 				else
 					aMessages << "Fail - Input content did not pass schema validation - see following message(s):\n"
-					@mdReturn[:readerValidationMessages].each do |message|
-						aMessages << message.to_s
+
+					# find path to remove from messages
+					spec = Gem::Specification.find_by_name('adiwg-json_schemas')
+					gem_root = spec.gem_dir
+					gem_path = File.join(gem_root, 'schema')
+					gem_path[0] = gem_path[0].downcase
+
+					# replace gem_path in messages
+					@mdReturn[:readerValidationMessages].each do |hMessage|
+						sMessage = hMessage.to_s
+						sMessage = sMessage.gsub(gem_path, '...')
+						aMessages << sMessage
 					end
 				end
+				@responseInfo[:messages][:readerValidationMessages] = aMessages
 			end
 
 		end
-
-		@responseInfo[:messages] = aMessages
 
 		case format
 			when 'auto'

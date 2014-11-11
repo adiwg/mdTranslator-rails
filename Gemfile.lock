@@ -27,8 +27,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    adiwg-json_schemas (0.8.1)
-    adiwg-mdcodes (0.2.0)
+    adiwg-json_schemas (0.9.0)
+    adiwg-mdcodes (0.2.1)
+      json (~> 1.8)
     adiwg-mdtranslator (0.9.0)
       adiwg-json_schemas (~> 0.8)
       builder (~> 3.2)
@@ -121,7 +122,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.5.1)
+    turbolinks (2.5.2)
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -137,16 +138,16 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  adiwg-json_schemas (~> 0.8)
+  adiwg-json_schemas (~> 0.9)
   adiwg-mdcodes (~> 0.2)
-  adiwg-mdtranslator (~> 0.8)
+  adiwg-mdtranslator (~> 0.9)
   builder
   coderay
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
   json
-  json-schema
+  json-schema (~> 2.4)
   kramdown
   pg
   rack-cors
