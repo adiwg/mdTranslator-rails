@@ -17,6 +17,7 @@
 #   Stan Smith 2014-11-10 return all messageObject detail when
 #   ... mdTranslator returns error messages
 #   Stan Smith 2014-11-10 remove absolute path information from error messages
+#   Josh Bradley 2014-11-12 fix message output for plain response
 
 class Api::V1::TranslatorsController < ApplicationController
 
@@ -169,8 +170,9 @@ class Api::V1::TranslatorsController < ApplicationController
 						when nil
 							request.format = 'plain'
 							s = ''
-							@responseInfo[:messages].each do |message|
-								s += message + "\n"
+							messages = ActiveSupport::HashWithIndifferentAccess.new(@responseInfo[:messages])
+							messages.each do |key, message|
+								s += (key + ': ' + message.to_s + "\n")
 							end
 							if params[:callback] == ''
 								render plain: s
@@ -206,9 +208,10 @@ class Api::V1::TranslatorsController < ApplicationController
 					# validation errors were detected, just return the messages
 					request.format = 'plain'
 					s = ''
-					@responseInfo[:messages].each do |message|
-						s += message + "\n"
-					end
+          messages = ActiveSupport::HashWithIndifferentAccess.new(@responseInfo[:messages])
+          messages.each do |key, message|
+            s += (key + ': ' + message.to_s + "\n")
+          end
 					if params[:callback] == ''
 						render plain: s
 					else
