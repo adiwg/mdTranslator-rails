@@ -46,38 +46,38 @@ class Api::V1::TranslatorsController < ApplicationController
 		# return Content-Type is based on:
 		# ...user requested content-type - params[:format]
 		# ...native output of writer - @mdReturn[:writerFormat]
-		# ...success or failure of translation
+		# ...success or failure of mdTranslator validation of input
 
-		# collect response content in a hash
+		# construct a hash to collect response content
 		@responseInfo = {}
 		@responseInfo[:success] = nil
 		@responseInfo[:messages] = {}
 		@responseInfo[:data] = nil
 
-		# load the data returned from the translator into the response
+		# load any output returned from mdTranslator into the response hash
 		@responseInfo[:data] = @mdReturn[:writerOutput]
 
-		# check for validation errors and prepare messages
-		aMessages = Array.new
+		# check for validation errors and prepare error messages if any
 		if @mdReturn[:readerStructurePass] && @mdReturn[:readerValidationPass]
 			# no validation errors were detected
 			@responseInfo[:success] = true
 		else
-			# some validation errors were detected
-			# no input was passed to the translator
-			# no output was received
+			# errors messages were returned by mdTranslator's validation of input
+			# therefore ...
+			# ... no input was passed to the mdTranslator writer and
+			# ... no writer output was returned by the mdTranslator
 			@responseInfo[:success] = false
 
-			# pass supplemental information back to assist in error resolution
-			# drop output from the supplemental information
+			# pass all information received from the mdTranslator to the requester
+			# ... to assist in error resolution
+			# do not alter the @mdReturn object as returned from mdTranslator
 			# rewrite message to
 			# ... shorten structure message to 1000 characters
 			# ... remove absolute paths from validation messages
 			@responseInfo[:messages] = @mdReturn
-			@responseInfo[:messages].delete(:writerOutput)
 
-			# error messages must be handled individually because some contain '[]' or '{}'
-			# ...which confuses the array methods
+			# handle error messages individually because some contain '[]' or '{}'
+			# ...which confuses array methods
 			unless @mdReturn[:readerStructurePass].nil?
 				aMessages = []
 				if @mdReturn[:readerStructurePass]
@@ -85,9 +85,9 @@ class Api::V1::TranslatorsController < ApplicationController
 				else
 					aMessages << "Fail - Structure of input file is invalid - see following message(s):\n"
 					@mdReturn[:readerStructureMessages].each do |message|
-						# parser returns entire input file if there is a structure error
-						# the file is not marked where the error occurs,
-						# so the message is not helpful and therefore truncated to 1000 characters
+						# the mdTranslator parser returns the entire input file if it finds a structure error
+						# ... there is no indication in the file where the error(s) occurred,
+						# ... therefore the returned file is truncated to 1000 characters
 						s = message.to_s.slice!(0,1000)
 						if s.length == 1000
 							s += ' ...'
@@ -105,13 +105,15 @@ class Api::V1::TranslatorsController < ApplicationController
 				else
 					aMessages << "Fail - Input content did not pass schema validation - see following message(s):\n"
 
-					# find path to remove from messages
+					# the json schema validator returns full expanded paths to gem
+					# these full paths may pose a security risk and are removed from the messages
+					# find gem path to remove from messages
 					spec = Gem::Specification.find_by_name('adiwg-json_schemas')
 					gem_root = spec.gem_dir
 					gem_path = File.join(gem_root, 'schema')
 					gem_path[0] = gem_path[0].downcase
 
-					# replace gem_path in messages
+					# replace gem_path in messages with '...'
 					@mdReturn[:readerValidationMessages].each do |hMessage|
 						sMessage = hMessage.to_s
 						sMessage = sMessage.gsub(gem_path, '...')
@@ -125,8 +127,8 @@ class Api::V1::TranslatorsController < ApplicationController
 
 		case format
 			when 'auto'
-				# test validation was successful
 				if @responseInfo[:success]
+					# there were no validation errors
 					case @mdReturn[:writerFormat]
 						when 'xml'
 							if params[:callback] == ''
@@ -163,9 +165,9 @@ class Api::V1::TranslatorsController < ApplicationController
 
 					end
 				else
-					# validation error were found and will be returned
-					# validation errors usually caught before entering the writer
-					# so if there are validations the writerFormat will generally be nil
+					# validation errors were found and will be returned to requester
+					# validation errors are caught before calling the writer
+					# so writerFormat will generally be nil
 					case @mdReturn[:writerFormat]
 						when nil
 							request.format = 'plain'
@@ -184,20 +186,23 @@ class Api::V1::TranslatorsController < ApplicationController
 							# if errors were detected by an XML writer
 							# the iso19115_2 XML writer does not error check at this time
 							# this is an unused path
-							render 'create.xml.builder'
+							# render 'create.xml.builder'
 
 						when 'json'
 							# if errors were detected by a JSON writer
 							# no JSON writer are available at this time
 							# this is an unused path
-							render json: @responseInfo[:data]
+							# render json: @responseInfo[:data]
 					end
 				end
 
 			when 'plain'
-				# test validation was successful
+				# text/plain was requested
+				# ... writeFormat is not considered
+				# all output to be returned as text/plain
+				# ... or JSONp if callback requested
 				if @responseInfo[:success]
-					# writeFormat is not considered, all output is returned as text/plain
+					# there were no validation errors
 					if params[:callback] == ''
 						render plain: @responseInfo[:data]
 					else
@@ -205,13 +210,12 @@ class Api::V1::TranslatorsController < ApplicationController
 					end
 
 				else
-					# validation errors were detected, just return the messages
-					request.format = 'plain'
+					# validation errors were found and will be returned to requester
 					s = ''
-          messages = ActiveSupport::HashWithIndifferentAccess.new(@responseInfo[:messages])
-          messages.each do |key, message|
-            s += (key + ': ' + message.to_s + "\n")
-          end
+					messages = ActiveSupport::HashWithIndifferentAccess.new(@responseInfo[:messages])
+					messages.each do |key, message|
+						s += (key + ': ' + message.to_s + "\n")
+					end
 					if params[:callback] == ''
 						render plain: s
 					else
@@ -220,7 +224,11 @@ class Api::V1::TranslatorsController < ApplicationController
 				end
 
 			when 'json'
-				# place response in json wrapper
+				# application/json was requested
+				# ... writeFormat is not considered
+				# ... mdTranslator success status is not considered
+				# full response from mdTranslator to be returned in json wrapper
+				# ... or returned as JSONp if callback requested
 				if params[:callback] == ''
 					render json: @responseInfo
 				else
@@ -228,7 +236,11 @@ class Api::V1::TranslatorsController < ApplicationController
 				end
 
 			when 'xml'
-				# place response in json wrapper
+				# application/xml was requested
+				# ... writeFormat is not considered
+				# ... mdTranslator success status is not considered
+				# full response from mdTranslator to be returned in xml wrapper
+				# ... or returned as JSONp if callback requested
 				if params[:callback] == ''
 					render xml: @responseInfo
 				else
