@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
 	namespace :api do
 		get '/' => 'v1/apis#show'
-		get 'v1/codelists' => 'codelists#index'
 		resources :readers
 		resources :writers
 		resources :codelists
