@@ -1,4 +1,4 @@
 mdTranslator-rails
 ==================
 
-Rails Engine for mdTranslator
+Rails API for mdTranslator: [mdtranslator.adiwg.org](http://mdtranslator.adiwg.org)
