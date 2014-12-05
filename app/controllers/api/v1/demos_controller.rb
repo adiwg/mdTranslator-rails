@@ -9,7 +9,7 @@ class Api::V1::DemosController < ApplicationController
 
 		# GET /tests
 		def show
-			file = File.open('lib/assets/adiwgJson_full_test_example.json', 'r')
+			file = File.open('lib/assets/mdJson_full_test_example.json', 'r')
 			@jsonDemo = file.read
 			file.close
 		end
