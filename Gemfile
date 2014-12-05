@@ -38,7 +38,7 @@ gem 'thor'
 # Use uuidtools to create unique identifiers
 gem 'uuidtools'
 # Use json_schema as schema validator
-gem 'json-schema', '~> 2.4'
+gem 'json-schema', '>= 2.4', '< 2.5'
 # Alaska Data Integration working group schema definition
 gem 'adiwg-json_schemas', '~> 0.9'
 # Alaska Data Integration working group metadata translator
