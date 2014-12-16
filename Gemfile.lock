@@ -28,13 +28,13 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     adiwg-json_schemas (0.9.4)
-    adiwg-mdcodes (0.3.0)
+    adiwg-mdcodes (0.2.1)
       json (~> 1.8)
-    adiwg-mdtranslator (0.11.0)
+    adiwg-mdtranslator (0.10.2)
       adiwg-json_schemas (~> 0.9.4)
       builder (~> 3.2)
       json (~> 1.8)
-      json-schema (~> 2.4.0, < 2.5.0)
+      json-schema (~> 2.4.0)
       thor (~> 0.19)
       uuidtools (~> 2.1)
     arel (5.0.1.20140414130214)
@@ -140,7 +140,7 @@ PLATFORMS
 DEPENDENCIES
   adiwg-json_schemas (~> 0.9)
   adiwg-mdcodes (~> 0.2)
-  adiwg-mdtranslator (~> 0.11)
+  adiwg-mdtranslator (~> 0.10)
   builder
   coderay
   coffee-rails (~> 4.0.0)
