@@ -21,7 +21,7 @@ class Api::ReadersController < ApplicationController
 	def show
 		# get text for show body from mdTranslator readme file
 		@reader = params[:id]
-		@readerBody = ADIWG::Mdtranslator.get_reader_readme(@reader)
+		@readerBody = ADIWG::Mdtranslator::Readers.get_reader_readme(@reader)
 	end
 
 end
