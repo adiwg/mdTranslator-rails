@@ -4,6 +4,7 @@
 
 # History:
 # 	Stan Smith 2014-11-04 initial code
+# 	Stan Smith 2014-12-18 changed @codeLists format
 
 require 'builder'
 
@@ -34,7 +35,7 @@ xml.tag!('CT_CodelistCatalogue',{'xmlns:gco' => 'http://www.isotc211.org/2005/gc
 		xml.tag!('gco:CharacterString','0.1.0')
 	end
 	xml.versionDate do
-		xml.tag!('gco:Date','2014-11-04')
+		xml.tag!('gco:Date','2014-12-18')
 	end
 	xml.comment!('=============================================================================================')
 	xml.comment!('=============================================================================================')
@@ -42,17 +43,17 @@ xml.tag!('CT_CodelistCatalogue',{'xmlns:gco' => 'http://www.isotc211.org/2005/gc
 	codeSpace = {}
 	codeSpace['codeSpace'] = 'ISOTC211/19115'
 	@codeLists.each do |key, value|
-		s = '====' + value['isoName'] + '===='
+		s = '====' + value['sourceName'] + '===='
 		xml.comment!(s)
 		xml.codelistItem do
 			attributes = {}
-			attributes['gml:id'] = value['isoName']
-			xml.tag!('CodeListDictionary', {'gml:id' => value['isoName']}) do
+			attributes['gml:id'] = value['sourceName']
+			xml.tag!('CodeListDictionary', {'gml:id' => value['sourceName']}) do
 				xml.tag!('gml:description',value['description'])
-				xml.tag!('gml:identifier', value['isoName'], codeSpace)
-				value['items'].each do |item|
+				xml.tag!('gml:identifier', value['sourceName'], codeSpace)
+				value['codelist'].each do |item|
 					xml.codeEntry do
-						s = value['isoName'] + '_' + item['codeName']
+						s = value['sourceName'] + '_' + item['codeName']
 						xml.tag!('CodeDefinition', {'gml:id' => s}) do
 							xml.tag!('gml:description', item['description'])
 							xml.tag!('gml:identifier', item['codeName'], codeSpace)

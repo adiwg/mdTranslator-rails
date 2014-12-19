@@ -6,6 +6,7 @@
 # 	Stan Smith 2014-11-03 initial
 #   Stan Smith 2014-11-07 added namesOnly option
 #   Stan Smith 2014-12-04 changed option 'namesOnly' to 'definitions'
+#   Stan Smith 2014-12-18 method name changes in Mdcodes
 
 class Api::CodelistsController < ApplicationController
 
@@ -18,15 +19,15 @@ class Api::CodelistsController < ApplicationController
 
 		# if format is xml return an ISO CT_CodelistCatalogue version of the codelists
 		if format == 'xml'
-			@codeLists = ADIWG::Mdcodes.getCodeLists
+			@codeLists = ADIWG::Mdcodes.getAllCodeistsDetail
 			render(:template => 'api/codelists/index', :formats => [:xml], :handlers => :builder, :layout => false)
 		else
 			# return list in the default JSON format
 			# get the codelist or codelist with definitions depending on parameters
 			if params[:definitions] == 'true'
-				@codeLists = ADIWG::Mdcodes.getCodeLists
+				@codeLists = ADIWG::Mdcodes.getAllCodeistsDetail
 			else
-				@codeLists = ADIWG::Mdcodes.getCodeNames
+				@codeLists = ADIWG::Mdcodes.getAllStaticCodelists
 			end
 
 			if params[:callback] == ''
@@ -41,9 +42,9 @@ class Api::CodelistsController < ApplicationController
 		# return individual codeList
 		# only returns in JSON or JSONp
 		if params[:definitions] == 'true'
-			@codeList = ADIWG::Mdcodes.getCodeList(params[:id])
+			@codeList = ADIWG::Mdcodes.getCodelistDetail(params[:id])
 		else
-			@codeList = ADIWG::Mdcodes.getCodeName(params[:id])
+			@codeList = ADIWG::Mdcodes.getStaticCodelist(params[:id])
 		end
 
 		if params[:callback] == ''
@@ -52,5 +53,7 @@ class Api::CodelistsController < ApplicationController
 			render json: @codeList, callback: params[:callback]
 		end
 	end
+
+	private
 
 end
