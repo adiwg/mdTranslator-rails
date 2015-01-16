@@ -18,6 +18,7 @@
 #   ... mdTranslator returns error messages
 #   Stan Smith 2014-11-10 remove absolute path information from error messages
 #   Josh Bradley 2014-11-12 fix message output for plain response
+#   Stan Smith 2015-01-16 changed ADIWG::Mdtranslate.translate() to keyword parameter list
 
 class Api::V1::TranslatorsController < ApplicationController
 
@@ -41,7 +42,9 @@ class Api::V1::TranslatorsController < ApplicationController
 		format = params[:format] if params[:format]
 
 		# call the ADIwg metadata translator
-		@mdReturn = ADIWG::Mdtranslator.translate(fileObj, readerName, writerName, validation, showAllTags)
+		@mdReturn = ADIWG::Mdtranslator.translate(
+			file: fileObj, reader: readerName, validate: validation,
+			writer: writerName, showAllTags: showAllTags)
 
 		# return Content-Type is based on:
 		# ...user requested content-type - params[:format]
