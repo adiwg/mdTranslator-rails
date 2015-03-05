@@ -63,31 +63,29 @@ class Api::V1::TranslatorsController < ApplicationController
 		@responseInfo[:data] = @mdReturn[:writerOutput]
 
 		# check for errors returned by parser, validator, reader, and writer
-		if @mdReturn[:readerStructurePass] && @mdReturn[:readerValidationPass] && @mdReturn[:readerExecutionPass] && @mdReturn[:writerPass]
-			# no validation errors were detected
+		# allow for writer not being requested or not called because of a reader failure
+		if @mdReturn[:readerStructurePass] && @mdReturn[:readerValidationPass] && @mdReturn[:readerExecutionPass]
+			# no errors associated detected while processing the input file
 			@responseInfo[:success] = true
+
+			# check for writer detected errors
+			if @mdReturn[:writerPass] == false
+				@responseInfo[:success] = false
+			end
 		else
-			# errors messages were returned by mdTranslator's parser, validator, reader, or writer
 			@responseInfo[:success] = false
+		end
+
+		# errors messages were returned by mdTranslator's parser, validator, reader, or writer
+		if @responseInfo[:success] == false
 
 			# pass all information received from the mdTranslator to the requester
 			# ... to assist in error resolution
 			# ... remove absolute paths from validation messages
 			@responseInfo[:messages] = @mdReturn
 
-            # handling of parser errors
-            if @mdReturn[:readerStructurePass]
-                @responseInfo[:messages][:readerStructureMessages].insert(0, "Success - Input structure is valid\n")
-            else
-                @responseInfo[:messages][:readerStructureMessages].insert(0,"Fail - Structure of input file is invalid - see following message(s):\n")
-            end
-
             # handling validator messages
-            if @mdReturn[:readerValidationPass].nil?
-                @responseInfo[:messages][:readerValidationMessages].insert(0, "Validator was not called\n")
-            elsif @mdReturn[:readerValidationPass]
-                @responseInfo[:messages][:readerValidationMessages].insert(0, "Success - Input content passes schema definition\n")
-            else
+            if !@mdReturn[:readerValidationPass]
                 # the json schema validator returns full expanded paths to gem
                 # these full paths may pose a security risk and are removed from the messages
                 # find gem path to remove from messages
@@ -103,26 +101,6 @@ class Api::V1::TranslatorsController < ApplicationController
                     aMessages << sMessage
                 end
                 @responseInfo[:messages][:readerValidationMessages] = aMessages
-
-                @responseInfo[:messages][:readerValidationMessages].insert(0, "Fail - Input content did not pass schema validation - see following message(s):\n")
-            end
-
-            # handling reader messages
-            if @mdReturn[:readerExecutionPass].nil?
-                @responseInfo[:messages][:readerExecutionMessages].insert(0, "Reader was not called\n")
-            elsif @mdReturn[:readerExecutionPass]
-                @responseInfo[:messages][:readerExecutionMessages].insert(0, "Success - Input file was read\n")
-            else
-                @responseInfo[:messages][:readerExecutionMessages].insert(0,"Fail - Reading of input file did not complete  - see following message(s):\n")
-            end
-
-            # handling of writer messages
-            if @mdReturn[:writerPass].nil?
-                @responseInfo[:messages][:writerMessages].insert(0, "Writer was not called\n")
-            elsif @mdReturn[:writerPass]
-                @responseInfo[:messages][:writerMessages].insert(0, "Success - Metadata file was created\n")
-            else
-                @responseInfo[:messages][:writerMessages].insert(0,"Fail - Creation of metadata file failed to complete  - see following message(s):\n")
             end
 
 		end
