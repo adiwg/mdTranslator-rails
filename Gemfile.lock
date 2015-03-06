@@ -30,7 +30,7 @@ GEM
     adiwg-mdcodes (1.0.0)
       json (~> 1.8)
     adiwg-mdjson_schemas (1.0.0rc1)
-    adiwg-mdtranslator (1.0.0rc1)
+    adiwg-mdtranslator (1.0.0rc4)
       adiwg-mdjson_schemas (~> 1.0.0rc1)
       builder (~> 3.2)
       json (~> 1.8)
@@ -48,7 +48,7 @@ GEM
       execjs
     coffee-script-source (1.9.1)
     erubis (2.7.0)
-    execjs (2.3.0)
+    execjs (2.4.0)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.9)
