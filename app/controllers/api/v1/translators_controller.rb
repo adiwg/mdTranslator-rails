@@ -21,6 +21,7 @@
 #   Stan Smith 2015-01-16 changed ADIWG::Mdtranslator.translate() to keyword parameter list
 #   Stan Smith 2015-03-03 clean up of error message handling
 #   Stan Smith 2015-03-03 return error message in plain text when 'auto' selected
+#   Stan Smith 2015-04-13 added html section to format='auto' for HTML writer
 
 class Api::V1::TranslatorsController < ApplicationController
 
@@ -122,7 +123,14 @@ class Api::V1::TranslatorsController < ApplicationController
 								render json: @mdReturn[:writerOutput]
 							else
 								render json: @mdReturn[:writerOutput], callback: params[:callback]
-							end
+                            end
+
+                        when 'html'
+                            if params[:callback] == ''
+                                render inline: @mdReturn[:writerOutput]
+                            else
+                                render json: @mdReturn[:writerOutput], callback: params[:callback]
+                            end
 
 						when nil
 							# be sure writerFormat was returned nil because no writer was requested
@@ -141,7 +149,9 @@ class Api::V1::TranslatorsController < ApplicationController
 								else
 									render json: s, callback: params[:callback]
 								end
-							end
+                            end
+
+                            else render plain: 'Response format ' + @mdReturn[:writerFormat] + ' not handled.'
 
 					end
                 else
@@ -160,7 +170,6 @@ class Api::V1::TranslatorsController < ApplicationController
                     end
 
                 end
-
 
 			when 'plain'
 				# text/plain was requested
