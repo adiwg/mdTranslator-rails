@@ -49,9 +49,9 @@ gem 'uuidtools'
 # Use json_schema as schema validator
 gem 'json-schema', '>= 2.4', '< 2.5'
 # Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '~> 1.0.0'
+gem 'adiwg-mdjson_schemas', '~> 1.0'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 1.1.0'
+gem 'adiwg-mdtranslator', '~> 1.0'
 # Alaska Data Integration working group metadata code lists
 gem 'adiwg-mdcodes', '~> 1.0'
 
@@ -61,9 +61,6 @@ gem 'coderay'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
