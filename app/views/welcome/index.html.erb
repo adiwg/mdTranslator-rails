@@ -25,12 +25,15 @@ receives output in one of the mdTranslator's supported 'writer' formats.
 
 ## Links
 
+ * Documentation of the mdTranslator's version 1 [API](./api/v1)
  * List of mdTranslator's supported [readers](./api/readers)
  * List of mdTranslator's supported [writers](./api/writers)
- * Documentation of the mdTranslator's version 1 [API](./api/v1)
  * Hosted [demo](./api/v1/demo) of mdTranslator and options
- * [Home page](http://www.adiwg.org/mdTranslator/) for the mdTranslator project
- * GitHub [repositories](https://github.com/adiwg)  for the mdTranslator project
+ * Other Links ...
+   - [Home page](http://www.adiwg.org/mdTranslator/) for the mdTranslator project
+   - GitHub [repositories](https://github.com/adiwg)  for the mdTranslator project
+   - Online interactive [schema viewer](http://www.adiwg.org/mdTools/#viewer-page) for documenting
+   the mdJson schema
 
 ## Background
 
@@ -44,19 +47,22 @@ organizations of varying size and technical abilities.
 Development of an open-source toolkit for creation of ISO metadata was undertaken by the
 U.S. Geological Survey (USGS), Arctic Landscape Conservation Cooperative (ALCC), Alaska
 Ocean Observing Systems (AOOS), Nuna Technologies, and the National Climate Change Wildlife
-Science Centers (NCCWSC - USGS).  These organizations developed an extensible metadata toolkit
-in four parts:
+Science Centers (NCCWSC - USGS).  Together these organizations developed the six extensible components of
+the ADIwg ISO Metadata Developer's Toolkit:
 
  * __mdJson__ - a simple JSON format for scientific metadata that fully supports ISO 19115-2, ISO 19110,
- and FGDC metadata standards.  The mdJson schema can be viewed on the interactive
- [mdJson Schema Viewer](http://www.adiwg.org/mdJson-schema-viewer).
+ and FGDC metadata standards.
  * __mdTranslator__ - a public hosted web service for translation of mdJson to other metadata
  standards.  The mdTranslator is also available as a Ruby Gem 'adiwg-mdtranslator' or source
  code from the GitHub repository.
- * __mdEditor__ - an online metadata editor for preparation and maintenance of scientific
- metadata in the mdJson format.
  * __mdCodes__ - provides a REST endpoint to deliver managed codelist for required ISO codes plus
- extensions added by NGDC and/or ADIwg.
+ extensions added by ADIwg.
+ * __mdTools__ - provides a online documentation of the mdJson schema, mdJson validation support, and
+ an interface with the mdTranslator.
+ * __mdEditor__ - an online metadata editor for preparation and maintenance of scientific
+ metadata in the mdJson format (available fall 2015).
+ * __mdBook__ - provides detailed online documentation for implementing and extending mdTranslator in a
+ GitBook format (available soon).
 
 MARKDOWN
 %>
