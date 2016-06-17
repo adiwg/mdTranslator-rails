@@ -30,7 +30,7 @@ GEM
     adiwg-mdcodes (1.2.2)
       json (~> 1.8)
     adiwg-mdjson_schemas (1.1.2)
-    adiwg-mdtranslator (1.4.0.beta1)
+    adiwg-mdtranslator (1.4.0.beta2)
       adiwg-mdcodes (~> 1.0)
       adiwg-mdjson_schemas (~> 1.0)
       builder (~> 3.2)
