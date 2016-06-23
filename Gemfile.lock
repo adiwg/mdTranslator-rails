@@ -29,8 +29,8 @@ GEM
       tzinfo (~> 1.1)
     adiwg-mdcodes (1.2.2)
       json (~> 1.8)
-    adiwg-mdjson_schemas (1.1.2)
-    adiwg-mdtranslator (1.4.0.beta4)
+    adiwg-mdjson_schemas (1.1.3)
+    adiwg-mdtranslator (1.4.0.beta10)
       adiwg-mdcodes (~> 1.0)
       adiwg-mdjson_schemas (~> 1.0)
       builder (~> 3.2)
@@ -148,7 +148,7 @@ PLATFORMS
 DEPENDENCIES
   adiwg-mdcodes (~> 1.0)
   adiwg-mdjson_schemas (~> 1.0)
-  adiwg-mdtranslator (~> 1.4.0.beta1)
+  adiwg-mdtranslator (~> 1.4.0.beta10)
   builder
   coderay
   coffee-rails (~> 4.0.0)
@@ -170,3 +170,9 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   uuidtools
+
+RUBY VERSION
+   ruby 2.1.5p273
+
+BUNDLED WITH
+   1.12.5
