@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.1.10'
 
 #use unicorn server
 platforms :ruby do # linux
