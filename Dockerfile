@@ -1,7 +1,6 @@
 FROM ruby:2.1.10
 MAINTAINER Derek Williams <djwilliams@usgs.gov>
 RUN apt-get update && apt-get install -y \ 
-  build-essential \ 
   nodejs 
 RUN gem install rails -v 4.1.1
 COPY . /app
