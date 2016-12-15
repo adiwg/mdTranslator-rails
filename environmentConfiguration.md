@@ -18,7 +18,18 @@ gem install bundler
 
 bundle install
 
+## OPTIONAL for production - set SECRET_KEY_BASE environment variable##
+
+export SECRET_KEY_BASE=[your secret key base]
+
+*see http://stackoverflow.com/questions/23180650/how-to-solve-error-missing-secret-key-base-for-production-environment-rai or other resources*
+
 ## run application
 
 rails server
 
+## Browse to web app
+
+http://localhost:3000
+
+Click on "demo" link to do some metadata translations
