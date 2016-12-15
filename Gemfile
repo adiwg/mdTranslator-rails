@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.1.10'
 
 #use unicorn server
 platforms :ruby do # linux
@@ -8,16 +8,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
-
-# Use sqlite3 as the database for Active Record
-group :development do
-  gem 'sqlite3'
-end
-
-#for heroku
-group :production do
-  gem 'pg'
-end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -58,9 +48,6 @@ gem 'adiwg-mdcodes', '~> 1.0'
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
 gem 'coderay'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
