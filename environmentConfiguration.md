@@ -33,3 +33,7 @@ rails server
 http://localhost:3000
 
 Click on "demo" link to do some metadata translations
+
+## Bonus! Forget all that and just run a Docker
+
+docker run -d -p 3000:3000 derekjwilliams/mdtranslator-rails:latest
