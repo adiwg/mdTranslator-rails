@@ -4,8 +4,7 @@
 # REST endpoint controller for description of api
 
 # History:
-#  Stan Smith 2014-11-10 fixed problem with validation='strict'
-# 	Stan Smith 2014-10-09 initial
+#  Stan Smith 2017-05-19 Refactov2d v1 demo for v2
 -->
 
 <h2 id="mainHeader">
@@ -17,7 +16,7 @@
 <div id="form_container">
 	<%= form_tag("/api/v2/translator", id: "submitJSON") do %>
 		<div class="form_description">
-			<h2>Submit JSON</h2>
+			<h2>Submit Version 2 mdJson</h2>
 			<p>
 				Paste or type JSON, choose options, and click Submit. Valid ISO 19139 XML should be generated. For more info visit the
 				<a href="http://www.adiwg.org/mdTranslator">mdTranslator website</a>.
@@ -29,7 +28,6 @@
 				<div>
 					<select class="element select medium" id="element_2" name="reader">
 						<option value="mdJson" selected="selected">mdJson</option>
-						<option value="sbJson">sbJson</option>
 					</select>
 				</div>
 				<p class="guidelines" id="guide_2">
@@ -45,7 +43,6 @@
 						<option value="iso19110">iso19110</option>
 						<option value="html">HTML</option>
 						<option value="mdJson">mdJson</option>
-						<option value="sbJson">sbJson</option>
 						<option value="">-none-</option>
 					</select>
 				</div>
