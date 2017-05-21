@@ -1,21 +1,21 @@
 <!--
 # Alaska Data Integration working group - ADIwg
-
 # REST endpoint controller for description of api
 
 # History:
-# 	Stan Smith 2014-10-09 initial
+#   Stan Smith 2017-05-19 refactor for mdTranslator 2.0
 #   Stan Smith 2015-04-15 edits to text and links
+# 	Stan Smith 2014-10-09 initial
 -->
 
 <h2 id="mainHeader">
-	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
-	<span>API</span>
-	<span class="version">Welcome</span>
+   <%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
+   <span>API</span>
+   <span class="version">Welcome</span>
 </h2>
 
 <%
-   doc = <<-MARKDOWN
+doc = <<-MARKDOWN
 
 ## Welcome to the mdTranslator
 
@@ -26,47 +26,48 @@ receives output in one of the mdTranslator's supported 'writer' formats.
 
 ## Links
 
- * Documentation of the mdTranslator's version 1 [API](./api/v1)
- * List of mdTranslator's supported [readers](./api/readers)
- * List of mdTranslator's supported [writers](./api/writers)
- * Hosted [demo](./api/v1/demo) of mdTranslator and options
+ * Documentation of the mdTranslator's [API](./api/apis) for versions 1 and 2
+ * List of supported mdTranslator [readers](./api/readers)
+ * List of supported mdTranslator [writers](./api/writers)
+ * Hosted [demo](./api/v2/demo) of mdTranslator V2 and it's options
  * Other Links ...
    - [Home page](http://www.adiwg.org/mdTranslator/) for the mdTranslator project
-   - Online [mdTool](http://www.adiwg.org/mdTools/) for viewing
-    mdJson documentation, validating mdJson, submitting mdJson to mdTranslator, and
-    displaying responses from mdTranslator
-   - GitHub [repositories](https://github.com/adiwg) for the mdTranslator project
+   - Online [mdTool](http://mdTools.adiwg.org/) for viewing the latest mdJson schema
+    documentation, validating mdJson files, submitting mdJson to the mdTranslator, and
+    viewing mdCodes codelists
+   - GitHub [repositories](https://github.com/adiwg) for the mdTranslator project and tools
    - [RubyGems](https://rubygems.org/search?utf8=%E2%9C%93&query=adiwg) for RubyGem
     libraries for adiwg-mdtranslator, adiwg-mdcodes, and adiwg-json_schemas
+   - Online [mdBook](http://mdBook.adiwg.org/) for viewing documentation developers implementing and extending
+    the mdTranslator.
 
 ## Background
 
 The Alaska Data Integration Workgroup (ADIwg) evolved from, and supports the common interests
-of the North Slope Science Initiative (NSSI), Alaska Ocean Observing System
-Board (AOOS), North Pacific Research Board (NPRB), and the Alaska Climate Change Executive
-Roundtable (ACCER) and their member universities, federal and state agencies.  ADIwg's
-mission is to address the complex issues of discovery and access of scientific data across
-organizations of varying size and technical abilities.
+of the Alaska Climate Change Executive Roundtable (ACCER) and their member universities.  ACCER members
+include numerous federal and state agencies sharing resources and experience in working climate research projects
+across Alaska and the Arctic region.  ADIwg's mission is to cooperatively address the complex data issues of the
+ACCER's organizations.
 
-Development of an open-source toolkit for creation of ISO metadata was undertaken by the
-U.S. Geological Survey (USGS), Arctic Landscape Conservation Cooperative (ALCC), Alaska
-Ocean Observing Systems (AOOS), Nuna Technologies, and the National Climate Change Wildlife
-Science Centers (NCCWSC - USGS).  Together these organizations developed the six extensible components of
-the ADIwg ISO Metadata Developer's Toolkit:
+Development of the open-source ADIwg ISO Metadata Developer's Toolkit for creation of ISO and other metadata
+formats was undertaken by the U.S. Geological Survey (USGS), Arctic Landscape Conservation Cooperative (ALCC),
+Alaska Ocean Observing Systems (AOOS), Nuna Technologies, U.S. Fish & Wildlife Service (USFWS) and the
+National Climate Change and Wildlife Science Centers (NCCWSC - USGS).  Together these organizations developed
+the six extensible components of the ADIwg ISO Metadata Developer's Toolkit listed below:
 
- * __mdJson__ - a simple JSON format for scientific metadata that fully supports ISO 19115-2, ISO 19110,
- and FGDC metadata standards.
+ * __mdJson__ - a simple but thorough JSON format for scientific metadata that fully supports the ISO 19115-1,
+ ISO 19115-2, ISO 19110, FGDC, and other metadata standards.
  * __mdTranslator__ - a public hosted web service for translation of mdJson to other metadata
- standards.  The mdTranslator is also available as a Ruby Gem 'adiwg-mdtranslator' or source
- code from the GitHub repository.
+ standards.  The mdTranslator is also available as a Ruby Gem 'adiwg-mdtranslator' and as source
+ code from our GitHub repository.
  * __mdCodes__ - provides a REST endpoint to deliver managed codelist for required ISO codes plus
  extensions added by ADIwg.
- * __mdTools__ - provides a online documentation of the mdJson schema, mdJson validation support, and
- an interface with the mdTranslator.
- * __mdEditor__ - an online metadata editor for preparation and maintenance of scientific
- metadata in the mdJson format (available fall 2015).
- * __mdBook__ - provides detailed online documentation for implementing and extending mdTranslator in a
- GitBook format (available soon).
+ * __mdTools__ - provides a online documentation of the mdJson schema, mdJson validation support, viewing of codelists,
+ and an interface with the mdTranslator.
+ * __mdEditor__ - is an online metadata editor for the preparation and maintenance of scientific
+ metadata in the mdJson version 2 format (available summer 2017).
+ * __mdBook__ - provides detailed online documentation for implementing and extending the mdTranslator in a
+ GitBook format .
 
 MARKDOWN
 %>

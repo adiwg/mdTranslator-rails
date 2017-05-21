@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.4.0'
 
 #use unicorn server
 platforms :ruby do # linux
@@ -7,7 +7,7 @@ platforms :ruby do # linux
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.1'
+gem 'rails'
 
 # Use sqlite3 as the database for Active Record
 group :development do
@@ -20,11 +20,11 @@ group :production do
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -33,9 +33,9 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
 # gems required for ADIwg mdTranslator ...
 # Use json as JSON
@@ -47,13 +47,13 @@ gem 'thor'
 # Use uuidtools to create unique identifiers
 gem 'uuidtools'
 # Use json_schema as schema validator
-gem 'json-schema', '>= 2.4', '< 2.5'
+gem 'json-schema'
 # Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '~> 1.0'
+gem 'adiwg-mdjson_schemas', '~> 2.1.2'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 1.4.0.beta10'
+gem 'adiwg-mdtranslator', '~> 2.0.0rc4'
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '~> 1.0'
+gem 'adiwg-mdcodes', '~> 2.1.6'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'

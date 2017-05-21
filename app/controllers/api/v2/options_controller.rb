@@ -5,7 +5,7 @@
 # History:
 # 	Stan Smith 2014-10-09 initial
 
-class Api::V1::OptionsController < ApplicationController
+class Api::V2::OptionsController < ApplicationController
 
 	# GETs
 

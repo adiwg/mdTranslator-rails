@@ -15,9 +15,9 @@ body{
     background: #fefefe;
 }
 
-a{ color: #0645ad; text-decoration:none;}
-a:visited{ color: #0b0080; }
-a:hover{ color: #06e; }
+a{ color: #3a0dd0; text-decoration:none; font-weight: bold}
+a:visited{ color: #9317af; }
+a:hover{ color: #3a0dd0; text-decoration: underline}
 a:active{ color:#faa700; }
 a:focus{ outline: thin dotted; }
 a:hover, a:active{ outline: 0; }

@@ -28,7 +28,7 @@ module MdtranslatorRails
     # config.i18n.default_locale = :de
 
     #see https://github.com/cyu/rack-cors#rails
-    config.middleware.insert_before "ActionDispatch::Static", "Rack::Cors" do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
         resource '*', :headers => :any, :methods => [:get, :post, :options]
