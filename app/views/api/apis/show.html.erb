@@ -35,10 +35,10 @@
       ---
 
        * __.../api/codelists__ # returns a JSON or XML object with all codeLists from mdCodes <br>
-         - for codelists in ISO CT_CodelistCatalogue format use .../api/codelists?format="xml"
-         - for codelists in a JSON object use .../api/codelists?format="json"
-           - add definitions="true" to include code descriptions .../api/codelists?format="json"&definitions=true
-           - add callback="{callbackName}" for JSONp .../api/codelists?format="json"&callback=myJsonP
+         - for codelists in ISO CT_CodelistCatalogue format use .../api/codelists?format=xml
+         - for codelists in a JSON object use .../api/codelists?format=json
+           - add definitions="true" to include code descriptions .../api/codelists?format=json&definitions=true
+           - add callback="{callbackName}" for JSONp .../api/codelists?format=json&callback=myJsonP
        * __.../api/codelists/{codeListName}__ # returns a JSON object with the specified codeList
            - add definitions="true" to include code descriptions .../api/codelists/iso_role?definitions=true
            - add callback="{callbackName}" for JSONp .../api/codelists/iso_role?callback=myJsonP
