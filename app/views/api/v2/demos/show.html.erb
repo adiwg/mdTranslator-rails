@@ -4,7 +4,7 @@
 # REST endpoint controller for description of api
 
 # History:
-#  Stan Smith 2017-05-19 Refactov2d v1 demo for v2
+#  Stan Smith 2017-05-19 Refactored v1 demo for v2
 -->
 
 <h2 id="mainHeader">
@@ -27,7 +27,8 @@
 				<label class="description" for="element_2">Reader</label>
 				<div>
 					<select class="element select medium" id="element_2" name="reader">
-						<option value="mdJson" selected="selected">mdJson</option>
+                  <option value="mdJson" selected="selected">mdJson</option>
+                  <option value="sbJson">sbJson</option>
 					</select>
 				</div>
 				<p class="guidelines" id="guide_2">
@@ -39,11 +40,11 @@
 				<label class="description" for="element_3">Writer</label>
 				<div>
 					<select class="element select medium" id="element_3" name="writer">
-						<option value="iso19115_2" selected="selected">iso19115_2</option>
+                  <option value="html" selected="selected">HTML</option>
+                  <option value="iso19115_2">iso19115_2</option>
 						<option value="iso19110">iso19110</option>
-                  <option value="html">HTML</option>
-                  <option value="sbJson">sbJSON</option>
-						<option value="mdJson">mdJson</option>
+                  <option value="mdJson">mdJson</option>
+                  <option value="sbJson">sbJson</option>
 						<option value="">-none-</option>
 					</select>
 				</div>
