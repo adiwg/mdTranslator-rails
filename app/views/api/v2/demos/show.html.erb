@@ -6,6 +6,19 @@
 # History:
 #  Stan Smith 2017-05-19 Refactored v1 demo for v2
 -->
+<script type="text/javascript">
+   function insertText(exampleCode) {
+      if (exampleCode == 'mdJson') {
+         var elem = document.getElementById('codeTextarea');
+         var elemSource = document.getElementById('mdJsonExample');
+      }
+      if (exampleCode == 'sbJson') {
+         var elem = document.getElementById('codeTextarea');
+         var elemSource = document.getElementById('sbJsonExample');
+      }
+      elem.innerHTML = elemSource.innerHTML;
+   }
+</script>
 
 <h2 id="mainHeader">
 	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
@@ -108,12 +121,17 @@
 			<li id="li_8">
 				<label class="description" for="element_1">JSON</label>
 				<div>
-					<textarea id="codeTextarea" name="file"><%= @jsonDemo %></textarea>
+					<textarea id="codeTextarea" name="file"></textarea>
 				</div>
 				<p class="guidelines" id="guide_1">
-					<small>Put your JSON here</small>
-				</p>
+					<small>Put your JSON here ... OR </small>
+               <input type="button" class="buttons" value="Insert mdJson example" id="loadMdJson" onclick="insertText('mdJson');">
+               <input type="button" class="buttons" value="Insert sbJson example" id="loadSbJson" onclick="insertText('sbJson');">
+            </p>
 			</li>
+
+         <textarea id="mdJsonExample" hidden><%= @mdJsonDemo %></textarea>
+         <textarea id="sbJsonExample" hidden><%= @sbJsonDemo %></textarea>
 
 		</ul>
 

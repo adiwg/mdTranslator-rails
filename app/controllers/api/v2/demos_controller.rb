@@ -11,8 +11,14 @@ class Api::V2::DemosController < ApplicationController
 
    # GET /tests
    def show
-      file = File.open(File.join(ADIWG::MdjsonSchemas::Utils.examples_dir, 'mdJson.json'), 'r')
-      @jsonDemo = file.read
+      file = File.join(ADIWG::MdjsonSchemas::Utils.examples_dir, 'mdJson.json')
+      file = File.open(file, 'r')
+      @mdJsonDemo = file.read
+      file.close
+
+      file = File.join(File.dirname(__FILE__), '../../../assets/samples', 'sbJson.json')
+      file = File.open(file, 'r')
+      @sbJsonDemo = file.read
       file.close
    end
 
