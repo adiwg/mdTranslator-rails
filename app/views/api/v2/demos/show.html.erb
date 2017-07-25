@@ -4,8 +4,21 @@
 # REST endpoint controller for description of api
 
 # History:
-#  Stan Smith 2017-05-19 Refactov2d v1 demo for v2
+#  Stan Smith 2017-05-19 Refactored v1 demo for v2
 -->
+<script type="text/javascript">
+   function insertText(exampleCode) {
+      if (exampleCode == 'mdJson') {
+         var elem = document.getElementById('codeTextarea');
+         var elemSource = document.getElementById('mdJsonExample');
+      }
+      if (exampleCode == 'sbJson') {
+         var elem = document.getElementById('codeTextarea');
+         var elemSource = document.getElementById('sbJsonExample');
+      }
+      elem.innerHTML = elemSource.innerHTML;
+   }
+</script>
 
 <h2 id="mainHeader">
 	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
@@ -27,7 +40,8 @@
 				<label class="description" for="element_2">Reader</label>
 				<div>
 					<select class="element select medium" id="element_2" name="reader">
-						<option value="mdJson" selected="selected">mdJson</option>
+                  <option value="mdJson" selected="selected">mdJson</option>
+                  <option value="sbJson">sbJson</option>
 					</select>
 				</div>
 				<p class="guidelines" id="guide_2">
@@ -39,11 +53,11 @@
 				<label class="description" for="element_3">Writer</label>
 				<div>
 					<select class="element select medium" id="element_3" name="writer">
-						<option value="iso19115_2" selected="selected">iso19115_2</option>
+                  <option value="html" selected="selected">HTML</option>
+                  <option value="iso19115_2">iso19115_2</option>
 						<option value="iso19110">iso19110</option>
-                  <option value="html">HTML</option>
-                  <option value="sbJson">sbJSON</option>
-						<option value="mdJson">mdJson</option>
+                  <option value="mdJson">mdJson</option>
+                  <option value="sbJson">sbJson</option>
 						<option value="">-none-</option>
 					</select>
 				</div>
@@ -107,12 +121,17 @@
 			<li id="li_8">
 				<label class="description" for="element_1">JSON</label>
 				<div>
-					<textarea id="codeTextarea" name="file"><%= @jsonDemo %></textarea>
+					<textarea id="codeTextarea" name="file"></textarea>
 				</div>
 				<p class="guidelines" id="guide_1">
-					<small>Put your JSON here</small>
-				</p>
+					<small>Put your JSON here ... OR </small>
+               <input type="button" class="buttons" value="Insert mdJson example" id="loadMdJson" onclick="insertText('mdJson');">
+               <input type="button" class="buttons" value="Insert sbJson example" id="loadSbJson" onclick="insertText('sbJson');">
+            </p>
 			</li>
+
+         <textarea id="mdJsonExample" hidden><%= @mdJsonDemo %></textarea>
+         <textarea id="sbJsonExample" hidden><%= @sbJsonDemo %></textarea>
 
 		</ul>
 
