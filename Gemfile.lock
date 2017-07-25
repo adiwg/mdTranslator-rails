@@ -105,6 +105,7 @@ GEM
     rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-timeout (0.4.2)
     rails (5.1.2)
       actioncable (= 5.1.2)
       actionmailer (= 5.1.2)
@@ -196,6 +197,7 @@ DEPENDENCIES
   kramdown
   pg
   rack-cors
+  rack-timeout
   rails
   rails_12factor
   sass-rails
