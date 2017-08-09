@@ -38,9 +38,11 @@
          - for codelists in ISO CT_CodelistCatalogue format use .../api/codelists?format=xml
          - for codelists in a JSON object use .../api/codelists?format=json
            - add definitions="true" to include code descriptions .../api/codelists?format=json&definitions=true
+           - add showDeprecated="true" to include deprecated codes .../api/codelists?format=json&showDeprecated=true
            - add callback="{callbackName}" for JSONp .../api/codelists?format=json&callback=myJsonP
-       * __.../api/codelists/{codeListName}__ # returns a JSON object with the specified codeList
+       * __.../api/codelists/{codeListName}__ # returns a JSON object with a specified codeList
            - add definitions="true" to include code descriptions .../api/codelists/iso_role?definitions=true
+           - add showDeprecated="true" to include deprecated codes .../api/codelists?format=json&showDeprecated=true
            - add callback="{callbackName}" for JSONp .../api/codelists/iso_role?callback=myJsonP
 
       ---
