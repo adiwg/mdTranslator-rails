@@ -6,7 +6,7 @@
 #  Stan Smith 2014-12-18 method name changes in Mdcodes
 #  Stan Smith 2014-12-04 changed option 'namesOnly' to 'definitions'
 #  Stan Smith 2014-11-07 added namesOnly option
-# 	Stan Smith 2014-11-03 initial
+# 	Stan Smith 2014-11-03 initial code
 
 class Api::CodelistsController < ApplicationController
 
