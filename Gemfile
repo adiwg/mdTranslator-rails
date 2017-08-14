@@ -9,6 +9,16 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 
+# Use sqlite3 as the database for Active Record
+group :development do
+  gem 'sqlite3'
+end
+
+#for heroku
+group :production do
+  gem 'pg'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -48,6 +58,9 @@ gem 'adiwg-mdcodes', '~> 2.3.0'
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
 gem 'coderay'
+
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
