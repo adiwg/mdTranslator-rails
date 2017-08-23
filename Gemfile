@@ -3,7 +3,7 @@ ruby '2.4.0'
 
 #use unicorn server
 platforms :ruby do # linux
-    gem 'unicorn'
+   gem 'unicorn'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -53,7 +53,7 @@ gem 'adiwg-mdjson_schemas', '~> 2.2.0'
 # Alaska Data Integration working group metadata translator
 gem 'adiwg-mdtranslator', '~> 2.0.0'
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '~> 2.1.7'
+gem 'adiwg-mdcodes', '~> 2.3.0'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
@@ -71,9 +71,9 @@ gem 'coderay'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # added x64_mingw for Windows x64 operating systems
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
-#assets for heroku
+# assets for heroku
 gem 'rails_12factor', group: :production
-#CORS support
+# CORS support
 gem 'rack-cors'
-#timeout
+# timeout
 gem 'rack-timeout'
