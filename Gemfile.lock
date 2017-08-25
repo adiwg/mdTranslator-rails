@@ -38,12 +38,12 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     adiwg-mdcodes (2.3.0)
       json (~> 2.0)
     adiwg-mdjson_schemas (2.2.0)
-    adiwg-mdtranslator (2.1.1)
+    adiwg-mdtranslator (2.1.2)
       adiwg-mdcodes (~> 2.3)
       adiwg-mdjson_schemas (>= 2.2)
       builder (~> 3.2)
@@ -103,7 +103,7 @@ GEM
       mini_portile2 (~> 2.2.0)
     pg (0.21.0)
     pg (0.21.0-x64-mingw32)
-    public_suffix (2.0.5)
+    public_suffix (3.0.0)
     rack (2.0.3)
     rack-cors (1.0.1)
     rack-test (0.6.3)
@@ -196,7 +196,7 @@ PLATFORMS
 DEPENDENCIES
   adiwg-mdcodes (~> 2.3.0)
   adiwg-mdjson_schemas (~> 2.2.0)
-  adiwg-mdtranslator (~> 2.1.1)
+  adiwg-mdtranslator (~> 2.1.2)
   builder
   coderay
   coffee-rails
