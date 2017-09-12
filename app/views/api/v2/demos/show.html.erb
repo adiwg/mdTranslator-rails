@@ -13,6 +13,10 @@
          var elem = document.getElementById('codeTextarea');
          var elemSource = document.getElementById('mdJsonExample');
       }
+      if (exampleCode == 'fgdc') {
+         var elem = document.getElementById('codeTextarea');
+         var elemSource = document.getElementById('fgdcExample');
+      }
       if (exampleCode == 'sbJson') {
          var elem = document.getElementById('codeTextarea');
          var elemSource = document.getElementById('sbJsonExample');
@@ -42,6 +46,7 @@
 				<div>
 					<select class="element select medium" id="element_2" name="reader">
                   <option value="mdJson" selected="selected">mdJson</option>
+                  <option value="fgdc">FGDC</option>
                   <option value="sbJson">sbJson</option>
 					</select>
 				</div>
@@ -127,11 +132,13 @@
 				<p class="guidelines" id="guide_1">
 					<small>Put your JSON here ... OR </small>
                <input type="button" class="buttons" value="Insert mdJson example" id="loadMdJson" onclick="insertText('mdJson');">
+               <input type="button" class="buttons" value="Insert fgdc example" id="loadFgdc" onclick="insertText('fgdc');">
                <input type="button" class="buttons" value="Insert sbJson example" id="loadSbJson" onclick="insertText('sbJson');">
             </p>
 			</li>
 
          <textarea id="mdJsonExample" hidden><%= @mdJsonDemo %></textarea>
+         <textarea id="fgdcExample" hidden><%= @fgdcDemo %></textarea>
          <textarea id="sbJsonExample" hidden><%= @sbJsonDemo %></textarea>
 
 		</ul>
