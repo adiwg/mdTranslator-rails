@@ -32,7 +32,7 @@
 </h2>
 
 <div id="form_container">
-	<%= form_tag("/api/v2/translator", id: "submitJSON") do %>
+	<%= form_tag((ENV['RAILS_RELATIVE_URL_ROOT'] ? ENV['RAILS_RELATIVE_URL_ROOT'] : "") + "/api/v2/translator", id: "submitJSON") do %>
 		<div class="form_description">
 			<h2>Submit Version 2 mdJson</h2>
 			<p>
