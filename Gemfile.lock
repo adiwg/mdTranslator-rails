@@ -43,7 +43,7 @@ GEM
     adiwg-mdcodes (2.3.2)
       json (~> 2.0)
     adiwg-mdjson_schemas (2.3.2)
-    adiwg-mdtranslator (2.3.5)
+    adiwg-mdtranslator (2.5.0)
       adiwg-mdcodes (~> 2.3.2)
       adiwg-mdjson_schemas (>= 2.3.2)
       builder (~> 3.2)
@@ -196,8 +196,8 @@ PLATFORMS
 
 DEPENDENCIES
   adiwg-mdcodes (~> 2.3.2)
-  adiwg-mdjson_schemas (~> 2.3.0)
-  adiwg-mdtranslator (~> 2.3.3)
+  adiwg-mdjson_schemas (~> 2.3.2)
+  adiwg-mdtranslator (~> 2.5.0)
   builder
   coderay
   coffee-rails
