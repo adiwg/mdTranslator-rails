@@ -35,7 +35,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', group: :doc
+gem 'sdoc', '~> 1.0.0.rc', group: :doc
 
 # gems required for ADIwg mdTranslator ...
 # Use json as JSON
@@ -49,9 +49,9 @@ gem 'uuidtools'
 # Use json_schema as schema validator
 gem 'json-schema'
 # Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '~> 2.3.0'
+gem 'adiwg-mdjson_schemas', '~> 2.3.2'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 2.3.3'
+gem 'adiwg-mdtranslator', '~> 2.6.0'
 # Alaska Data Integration working group metadata code lists
 gem 'adiwg-mdcodes', '~> 2.3.2'
 
