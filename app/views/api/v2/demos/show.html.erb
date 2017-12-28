@@ -4,6 +4,8 @@
 # REST endpoint controller for description of api
 
 # History:
+#  Stan Smith 2017-12-27 moved input textarea to top of page
+#  Stan Smith 2017-12-27 reworded page text to support other than mdJson input
 #  Stan Smith 2017-05-19 refactored v1 demo for v2
 #  Stan Smith 2017-06-30 add buttons to insert mdJson or sbJson into JSON textarea
 -->
@@ -28,20 +30,42 @@
 <h2 id="mainHeader">
 	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
 	<span>API</span>
-	<span class="version">Test V1</span>
+	<span class="version">Demo V2</span>
 </h2>
 
 <div id="form_container">
 	<%= form_tag((ENV['RAILS_RELATIVE_URL_ROOT'] ? ENV['RAILS_RELATIVE_URL_ROOT'] : "") + "/api/v2/translator", id: "submitJSON") do %>
 		<div class="form_description">
-			<h2>Submit Version 2 mdJson</h2>
-			<p>
-				Paste or type JSON, choose options, and click Submit. Valid ISO 19139 XML should be generated. For more info visit the
-				<a href="http://www.adiwg.org/mdTranslator">mdTranslator website</a>.
-			</p>
+			<h2>Submit metadata for translation</h2>
+			<ol type="1">
+				<li>Load an input metadata file. Modify if you like or paste your own. </li>
+            <li>Select 'reader', 'writer', and any desired option. </li>
+            <li>Click 'Submit' and translated metadata will be returned. </li>
+            <li>For more info visit the
+				<a href="http://www.adiwg.org/mdTranslator">mdTranslator website</a>. </li>
+			</ol>
 		</div>
 		<ul>
-			<li id="li_2">
+
+         <li id="li_1">
+            <p class="guidelines" id="guide_1">
+            <label class="description" for="element_1">Input Metadata File Area</label><br>
+               <small>CLICK</small>
+               <input type="button" class="buttons" value="mdJson example" id="loadMdJson" onclick="insertText('mdJson');">
+               <input type="button" class="buttons" value="fgdc example" id="loadFgdc" onclick="insertText('fgdc');">
+               <input type="button" class="buttons" value="sbJson example" id="loadSbJson" onclick="insertText('sbJson');">
+               <small>OR INSERT your metadata below ...</small>
+            </p>
+            <div>
+               <textarea id="codeTextarea" name="file"></textarea>
+            </div>
+         </li>
+
+         <textarea id="mdJsonExample" hidden><%= @mdJsonDemo %></textarea>
+         <textarea id="fgdcExample" hidden><%= @fgdcDemo %></textarea>
+         <textarea id="sbJsonExample" hidden><%= @sbJsonDemo %></textarea>
+
+         <li id="li_2">
 				<label class="description" for="element_2">Reader</label>
 				<div>
 					<select class="element select medium" id="element_2" name="reader">
@@ -60,6 +84,7 @@
 				<div>
 					<select class="element select medium" id="element_3" name="writer">
                   <option value="html" selected="selected">HTML</option>
+                  <option value="fgdc">fgdc (beta)</option>
                   <option value="iso19115_2">iso19115_2</option>
 						<option value="iso19110">iso19110</option>
                   <option value="mdJson">mdJson</option>
@@ -123,23 +148,6 @@
 					<small>Enter a callback name to receive a JSONp response</small>
 				</p>
 			</li>
-
-			<li id="li_8">
-				<label class="description" for="element_1">JSON</label>
-				<div>
-					<textarea id="codeTextarea" name="file"></textarea>
-				</div>
-				<p class="guidelines" id="guide_1">
-					<small>Put your JSON here ... OR </small>
-               <input type="button" class="buttons" value="Insert mdJson example" id="loadMdJson" onclick="insertText('mdJson');">
-               <input type="button" class="buttons" value="Insert fgdc example" id="loadFgdc" onclick="insertText('fgdc');">
-               <input type="button" class="buttons" value="Insert sbJson example" id="loadSbJson" onclick="insertText('sbJson');">
-            </p>
-			</li>
-
-         <textarea id="mdJsonExample" hidden><%= @mdJsonDemo %></textarea>
-         <textarea id="fgdcExample" hidden><%= @fgdcDemo %></textarea>
-         <textarea id="sbJsonExample" hidden><%= @sbJsonDemo %></textarea>
 
 		</ul>
 

@@ -8,6 +8,7 @@
 # REST endpoint controller for ruby gem adiwg-mdtranslator
 
 # History:
+#  Stan Smith 2017-12-27 fix bug from rename of responseObj[:writerFormat] to [:writerOutputFormat]
 #  Stan Smith 2017-05-19 refactored for mdTranslator 2.0
 #  Stan Smith 2015-04-13 added html section to format='auto' for HTML writer
 #  Stan Smith 2015-03-03 return error message in plain text when 'auto' selected
@@ -52,12 +53,14 @@ class Api::V2::TranslatorsController < ApplicationController
 
       # return Content-Type is based on:
       # ...user requested content-type - params[:format]
-      # ...native output of writer - @mdReturn[:writerFormat]
+      # ...native output of writer - @mdReturn[:writerOutputFormat]
       # ...success or failure of mdTranslator validation of input
 
       # construct a hash to collect response content
       @responseInfo = {}
-      @responseInfo[:success] = nil
+      @responseInfo[:readerPass] = false
+      @responseInfo[:writerPass] = false
+      @responseInfo[:success] = false
       @responseInfo[:messages] = {}
       @responseInfo[:data] = nil
 
@@ -65,20 +68,14 @@ class Api::V2::TranslatorsController < ApplicationController
       @responseInfo[:data] = @mdReturn[:writerOutput]
 
       # check for errors returned by parser, validator, reader, and writer
-      # allow for writer not being requested or not called because of a reader failure
+      # separate reader and writer errors
       if @mdReturn[:readerStructurePass] && @mdReturn[:readerValidationPass] && @mdReturn[:readerExecutionPass]
-         # no errors associated detected while processing the input file
-         @responseInfo[:success] = true
-
-         # check for writer detected errors
-         if @mdReturn[:writerPass] == false
-            @responseInfo[:success] = false
-         end
-      else
-         @responseInfo[:success] = false
+         @responseInfo[:readerPass] = true
       end
+      @responseInfo[:writerPass] = @mdReturn[:writerPass]
+      @responseInfo[:success] = true if @responseInfo[:readerPass] && @responseInfo[:writerPass]
 
-      # errors messages were returned by mdTranslator's parser, validator, reader, or writer
+      # errors messages were returned by mdTranslator's parser, validator, reader, or writer modules
       if @responseInfo[:success] == false
 
          # pass all information received from the mdTranslator to the requester
@@ -111,7 +108,7 @@ class Api::V2::TranslatorsController < ApplicationController
          when 'auto'
             if @responseInfo[:success]
                # there were no validation errors
-               case @mdReturn[:writerFormat]
+               case @mdReturn[:writerOutputFormat]
                   when 'xml'
                      if params[:callback] == ''
                         render xml: @mdReturn[:writerOutput]
@@ -134,7 +131,7 @@ class Api::V2::TranslatorsController < ApplicationController
                      end
 
                   when nil
-                     # be sure writerFormat was returned nil because no writer was requested
+                     # be sure writerOutputFormat was returned nil because no writer was requested
                      if writerName == ''
                         if params[:callback] == ''
                            render plain: 'Success'
@@ -143,8 +140,9 @@ class Api::V2::TranslatorsController < ApplicationController
                         end
                      else
                         s = ''
-                        s += "Warning - No validation errors were detected, but writer was not called\n"
-                        s += "Be sure writer name is valid\n"
+                        s += "Warning - No validation errors were detected, but writer did not return success\n"
+                        s += "Be sure writer name is correct\n"
+                        s += "Check for writer specific error messages\n"
                         if params[:callback] == ''
                            render plain: s
                         else
@@ -153,7 +151,7 @@ class Api::V2::TranslatorsController < ApplicationController
                      end
 
                   else
-                     render plain: 'Response format ' + @mdReturn[:writerFormat] + ' not handled.'
+                     render plain: 'Response format ' + @mdReturn[:writerOutputFormat] + ' not handled.'
 
                end
             else
