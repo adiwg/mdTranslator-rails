@@ -42,7 +42,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     adiwg-mdcodes (2.3.2)
       json (~> 2.0)
-    adiwg-mdjson_schemas (2.3.2)
+    adiwg-mdjson_schemas (2.4.1)
     adiwg-mdtranslator (2.7.0)
       adiwg-mdcodes (~> 2.3.2)
       adiwg-mdjson_schemas (>= 2.3.2)
@@ -96,7 +96,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     multi_json (1.12.2)
-    nio4r (2.1.0)
+    nio4r (2.2.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
@@ -169,7 +169,7 @@ GEM
     turbolinks-source (5.0.3)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    uglifier (4.0.2)
+    uglifier (4.1.0)
       execjs (>= 0.3.0, < 3)
     unicorn (5.4.0)
       kgio (~> 2.6)
@@ -184,7 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   adiwg-mdcodes (~> 2.3.2)
-  adiwg-mdjson_schemas (~> 2.3.2)
+  adiwg-mdjson_schemas (~> 2.4.1)
   adiwg-mdtranslator (~> 2.7.0)
   builder
   coderay
