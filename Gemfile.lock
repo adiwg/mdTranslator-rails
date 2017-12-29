@@ -45,7 +45,7 @@ GEM
     adiwg-mdjson_schemas (2.4.1)
     adiwg-mdtranslator (2.7.0)
       adiwg-mdcodes (~> 2.3.2)
-      adiwg-mdjson_schemas (>= 2.3.2)
+      adiwg-mdjson_schemas (>= 2.4.1)
       builder (~> 3.2)
       coderay (~> 1.1)
       jbuilder (~> 2.5)
@@ -169,7 +169,7 @@ GEM
     turbolinks-source (5.0.3)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    uglifier (4.1.0)
+    uglifier (4.1.1)
       execjs (>= 0.3.0, < 3)
     unicorn (5.4.0)
       kgio (~> 2.6)
@@ -213,4 +213,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
