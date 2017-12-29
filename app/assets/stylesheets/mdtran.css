@@ -137,8 +137,15 @@ td { vertical-align: top; }
     font-size: 80%;
     margin: 0;
     width: 99%;
-    min-height: 12em;
+    min-height: 6em;
     resize: vertical;
+}
+
+.buttons {
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 /*
