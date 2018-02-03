@@ -42,10 +42,10 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     adiwg-mdcodes (2.4.0)
       json (~> 2.0)
-    adiwg-mdjson_schemas (2.4.1)
-    adiwg-mdtranslator (2.8.0)
+    adiwg-mdjson_schemas (2.4.2)
+    adiwg-mdtranslator (2.9.0)
       adiwg-mdcodes (~> 2.4.0)
-      adiwg-mdjson_schemas (>= 2.4.1)
+      adiwg-mdjson_schemas (>= 2.4.2)
       builder (~> 3.2)
       coderay (~> 1.1)
       jbuilder (~> 2.5)
@@ -184,8 +184,8 @@ PLATFORMS
 
 DEPENDENCIES
   adiwg-mdcodes (~> 2.4.0)
-  adiwg-mdjson_schemas (~> 2.4.1)
-  adiwg-mdtranslator (~> 2.8.0)
+  adiwg-mdjson_schemas (~> 2.4.2)
+  adiwg-mdtranslator (~> 2.9.0)
   builder
   coderay
   coffee-rails
