@@ -37,7 +37,8 @@
 <div id="form_container">
 	<%= form_tag((ENV['RAILS_RELATIVE_URL_ROOT'] ? ENV['RAILS_RELATIVE_URL_ROOT'] : "") + "/api/v2/translator", id: "submitJSON") do %>
 		<div class="form_description">
-			<h2>Submit metadata for translation</h2>
+			<h2>Submit metadata to mdTranslator 2.9.0</h2>
+         </h2>
 			<ol type="1">
 				<li>Load an input metadata file. Modify if you like or paste your own. </li>
             <li>Select 'reader', 'writer', and any desired option. </li>
@@ -85,7 +86,7 @@
 				<div>
 					<select class="element select medium" id="element_3" name="writer">
                   <option value="html" selected="selected">html</option>
-                  <option value="fgdc">fgdc (beta)</option>
+                  <option value="fgdc">fgdc</option>
                   <option value="iso19115_2">iso19115_2</option>
 						<option value="iso19110">iso19110</option>
                   <option value="mdJson">mdJson</option>

@@ -999,15 +999,15 @@
           <cntorg>U.S. Geological Survey Alaska Science Center</cntorg>
         </cntorgp>
         <cntaddr>
-          <addrtype>mailing and physical</addrtype>
-          <address>4210 University Drive</address>
+          <addrtype>mailing</addrtype>
+          <address>P.O. Box 1449</address>
           <city>Anchorage</city>
           <state>Alaska</state>
-          <postal>99508</postal>
+          <postal>99510-1449</postal>
           <country>USA</country>
         </cntaddr>
-        <cntvoice>907-786-7000</cntvoice>
-        <cntemail>ascweb@usgs.gov</cntemail>
+        <cntvoice>800-222-1212</cntvoice>
+        <cntemail>webmaster.asc.usgs@usgs.gov</cntemail>
       </cntinfo>
     </metc>
     <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
