@@ -58,9 +58,7 @@ class Api::V2::TranslatorsController < ApplicationController
 
       # construct a hash to collect response content
       @responseInfo = {}
-      @responseInfo[:readerPass] = false
-      @responseInfo[:writerPass] = false
-      @responseInfo[:success] = false
+      @responseInfo[:success] = true
       @responseInfo[:messages] = {}
       @responseInfo[:data] = nil
 
@@ -68,15 +66,13 @@ class Api::V2::TranslatorsController < ApplicationController
       @responseInfo[:data] = @mdReturn[:writerOutput]
 
       # check for errors returned by parser, validator, reader, and writer
-      # separate reader and writer errors
-      if @mdReturn[:readerStructurePass] && @mdReturn[:readerValidationPass] && @mdReturn[:readerExecutionPass]
-         @responseInfo[:readerPass] = true
-      end
-      @responseInfo[:writerPass] = @mdReturn[:writerPass]
-      @responseInfo[:success] = true if @responseInfo[:readerPass] && @responseInfo[:writerPass]
+      @responseInfo[:success] = false unless @mdReturn[:readerStructurePass]
+      @responseInfo[:success] = false unless @mdReturn[:readerValidationPass]
+      @responseInfo[:success] = false unless @mdReturn[:readerExecutionPass]
+      @responseInfo[:success] = false unless @mdReturn[:writerPass]
 
       # errors messages were returned by mdTranslator's parser, validator, reader, or writer modules
-      if @responseInfo[:success] == false
+      unless @responseInfo[:success]
 
          # pass all information received from the mdTranslator to the requester
          # ... to assist in error resolution
@@ -84,7 +80,7 @@ class Api::V2::TranslatorsController < ApplicationController
          @responseInfo[:messages] = @mdReturn
 
          # handling validator messages
-         if !@mdReturn[:readerValidationPass]
+         unless @mdReturn[:readerValidationPass]
             # the json schema validator returns full expanded paths to gem
             # these full paths may pose a security risk and are removed from the messages
             # find gem path to remove from messages
