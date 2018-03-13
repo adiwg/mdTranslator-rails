@@ -37,7 +37,7 @@
 <div id="form_container">
 	<%= form_tag((ENV['RAILS_RELATIVE_URL_ROOT'] ? ENV['RAILS_RELATIVE_URL_ROOT'] : "") + "/api/v2/translator", id: "submitJSON") do %>
 		<div class="form_description">
-			<h2>Submit metadata to mdTranslator 2.9.0</h2>
+			<h2>Submit metadata to mdTranslator <%=Gem::Specification.find_by_name('adiwg-mdtranslator').version.to_s%></h2>
          </h2>
 			<ol type="1">
 				<li>Load an input metadata file. Modify if you like or paste your own. </li>

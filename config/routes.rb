@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       namespace :v2 do
          get '/' => '/api/apis#show'
          get 'api' => '/api/apis#show'
-         get 'translator' => 'translators#create', :as => :translator
+         get 'translator' => 'translators#create', :as => :translators
          resource :options
          resource :translator
          resource :demo
