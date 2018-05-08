@@ -8,6 +8,9 @@
 # REST endpoint controller for ruby gem adiwg-mdtranslator
 
 # History:
+#  Stan Smith 2018-05-07 for 'plain' response to return all parameters in formatted text
+#  Stan Smith 2018-05-07 remove JSONp callback - obsolete
+#  Stan Smith 2018-05-04 add 'forceValid' flag
 #  Stan Smith 2017-12-27 fix bug from rename of responseObj[:writerFormat] to [:writerOutputFormat]
 #  Stan Smith 2017-05-19 refactored for mdTranslator 2.0
 #  Stan Smith 2015-04-13 added html section to format='auto' for HTML writer
@@ -25,6 +28,8 @@
 #  Josh Bradley 2013-12-28 implementation of demo website
 # 	Stan Smith 2013-08-09 proof of concept
 
+require 'pp'
+
 class Api::V2::TranslatorsController < ApplicationController
 
    # Gets
@@ -40,30 +45,76 @@ class Api::V2::TranslatorsController < ApplicationController
       writerName = params[:writer]
       validation = params[:validate]
       showAllTags = false
-      if params[:showAllTags] == 'true'
-         showAllTags = true
-      end
-      format = 'auto'
-      format = params[:format] if params[:format]
+      showAllTags = true if params[:showAllTags] == 'true'
+      forceValid = true
+      forceValid = false if params[:forceValid] == 'false'
+      requestFormat = 'auto'
+      requestFormat = params[:format] if params[:format]
 
       # call the ADIwg metadata translator
       @mdReturn = ADIWG::Mdtranslator.translate(
          file: fileObj, reader: readerName, validate: validation,
-         writer: writerName, showAllTags: showAllTags)
+         writer: writerName, showAllTags: showAllTags, forceValid: forceValid)
 
-      # return Content-Type is based on:
-      # ...user requested content-type - params[:format]
-      # ...native output of writer - @mdReturn[:writerOutputFormat]
-      # ...success or failure of mdTranslator validation of input
+      # return content based on:
+      # ... response type 'auto' w/o errors - return output in native format
+      # ... response type 'auto' w/ errors - return full object in native format
+      # ... response type 'xml' - always return full object in XML format
+      # ... response type 'json' - always return full object in JSON format
 
       # construct a hash to collect response content
       @responseInfo = {}
       @responseInfo[:success] = true
-      @responseInfo[:messages] = {}
-      @responseInfo[:data] = nil
+      @responseInfo[:readerStructureStatus] = 'OK'
+      @responseInfo[:readerStructureMessages] = @mdReturn[:readerStructureMessages]
+      @responseInfo[:readerValidationStatus] = 'OK'
+      @responseInfo[:readerValidationMessages] = @mdReturn[:readerValidationMessages]
+      @responseInfo[:readerExecutionStatus] = 'OK'
+      @responseInfo[:readerExecutionMessages] = @mdReturn[:readerExecutionMessages]
+      @responseInfo[:writerStatus] = 'OK'
+      @responseInfo[:writerMessages] = @mdReturn[:writerMessages]
+      @responseInfo[:readerRequested] = @mdReturn[:readerRequested]
+      @responseInfo[:readerVersionRequested] = @mdReturn[:readerVersionRequested]
+      @responseInfo[:readerVersionUsed] = @mdReturn[:readerVersionUsed]
+      @responseInfo[:writerRequested] = @mdReturn[:writerRequested]
+      @responseInfo[:writerVersion] = @mdReturn[:writerVersion]
+      @responseInfo[:writerOutputFormat] = @mdReturn[:writerOutputFormat]
+      @responseInfo[:writerForceValid] = @mdReturn[:writerForceValid]
+      @responseInfo[:writerShowTags] = @mdReturn[:writerShowTags]
+      @responseInfo[:writerCSSlink] = @mdReturn[:writerCSSlink]
+      @responseInfo[:writerMissingIdCount] = @mdReturn[:writerMissingIdCount]
+      @responseInfo[:translatorVersion] = @mdReturn[:translatorVersion]
+      @responseInfo[:writerOutput] = @mdReturn[:writerOutput]
 
-      # load any output returned from mdTranslator into the response hash
-      @responseInfo[:data] = @mdReturn[:writerOutput]
+      # set messages Status (ERROR, WARNING, NOTICE, none)
+      aSMess = @responseInfo[:readerStructureMessages]
+      aVMess = @responseInfo[:readerValidationMessages]
+      aEMess = @responseInfo[:readerExecutionMessages]
+      aWMess = @responseInfo[:writerMessages]
+
+      status = 'OK'
+      status = 'NOTICE' if aSMess.any? {|s| s.include?('NOTICE')}
+      status = 'WARNING' if aSMess.any? {|s| s.include?('WARNING')}
+      status = 'ERROR' if aSMess.any? {|s| s.include?('ERROR')}
+      @responseInfo[:readerStructureStatus] = status
+
+      status = 'OK'
+      status = 'NOTICE' if aVMess.any? {|s| s.include?('NOTICE')}
+      status = 'WARNING' if aVMess.any? {|s| s.include?('WARNING')}
+      status = 'ERROR' if aVMess.any? {|s| s.include?('ERROR')}
+      @responseInfo[:readerValidationStatus] = status
+
+      status = 'OK'
+      status = 'NOTICE' if aEMess.any? {|s| s.include?('NOTICE')}
+      status = 'WARNING' if aEMess.any? {|s| s.include?('WARNING')}
+      status = 'ERROR' if aEMess.any? {|s| s.include?('ERROR')}
+      @responseInfo[:readerExecutionStatus] = status
+
+      status = 'OK'
+      status = 'NOTICE' if aWMess.any? {|s| s.include?('NOTICE')}
+      status = 'WARNING' if aWMess.any? {|s| s.include?('WARNING')}
+      status = 'ERROR' if aWMess.any? {|s| s.include?('ERROR')}
+      @responseInfo[:writerStatus] = status
 
       # check for errors returned by parser, validator, reader, and writer
       @responseInfo[:success] = false unless @mdReturn[:readerStructurePass]
@@ -71,154 +122,63 @@ class Api::V2::TranslatorsController < ApplicationController
       @responseInfo[:success] = false unless @mdReturn[:readerExecutionPass]
       @responseInfo[:success] = false unless @mdReturn[:writerPass]
 
-      # errors messages were returned by mdTranslator's parser, validator, reader, or writer modules
-      unless @responseInfo[:success]
-
-         # pass all information received from the mdTranslator to the requester
-         # ... to assist in error resolution
-         # ... remove absolute paths from validation messages
-         @responseInfo[:messages] = @mdReturn
-
-         # handling validator messages
-         unless @mdReturn[:readerValidationPass]
-            # the json schema validator returns full expanded paths to gem
-            # these full paths may pose a security risk and are removed from the messages
-            # find gem path to remove from messages
-            gem_root = ADIWG::MdjsonSchemas::Utils.schema_dir.match(/(^.+)\/lib/i).captures[0]
-            gem_path = File.join(gem_root, 'schema')
-            gem_path[0] = gem_path[0].downcase
-
-            # replace gem_path in messages with '...'
-            aMessages = []
-            @mdReturn[:readerValidationMessages].each do |hMessage|
-               sMessage = hMessage.to_s
-               sMessage = sMessage.gsub(gem_path, '...')
-               aMessages << sMessage
-            end
-            @responseInfo[:messages][:readerValidationMessages] = aMessages
+      # build lightly formatted string for 'plain' text rendering
+      sPlain = ''
+      @responseInfo.each do |key, value|
+         if key.to_s == 'writerOutput'
+            sPlain += "\n" + key.to_s + ': ' + "\n"
+            sPlain += value.to_s + "\n"
          end
-
+         sPlain += key.to_s + ': '
+         if value.kind_of?(Array)
+            sPlain += "\n"
+            value.each do |item|
+               sPlain += '   ' + item + "\n"
+            end
+         else
+            sPlain += value.to_s + "\n"
+         end
       end
 
-      case format
-         when 'auto'
-            if @responseInfo[:success]
-               # there were no validation errors
-               case @mdReturn[:writerOutputFormat]
-                  when 'xml'
-                     if params[:callback] == ''
-                        render xml: @mdReturn[:writerOutput]
-                     else
-                        render json: @mdReturn[:writerOutput], callback: params[:callback]
-                     end
+      # the json schema validator returns expanded folder/file path names to gem
+      # these path names may pose a security risk and are removed from the messages
+      # find gem path and removed it from messages
+      unless @responseInfo[:readerValidationStatus] == 'OK'
+         gem_root = ADIWG::MdjsonSchemas::Utils.schema_dir.match(/(^.+)\/lib/i).captures[0]
+         gem_path = File.join(gem_root, 'schema')
+         gem_path[0] = gem_path[0].downcase
 
-                  when 'json'
-                     if params[:callback] == ''
-                        render json: @mdReturn[:writerOutput]
-                     else
-                        render json: @mdReturn[:writerOutput], callback: params[:callback]
-                     end
-
-                  when 'html'
-                     if params[:callback] == ''
-                        render inline: @mdReturn[:writerOutput]
-                     else
-                        render json: @mdReturn[:writerOutput], callback: params[:callback]
-                     end
-
-                  when nil
-                     # be sure writerOutputFormat was returned nil because no writer was requested
-                     if writerName == ''
-                        if params[:callback] == ''
-                           render plain: 'Success'
-                        else
-                           render json: 'Success', callback: params[:callback]
-                        end
-                     else
-                        s = ''
-                        s += "Warning - No validation errors were detected, but writer did not return success\n"
-                        s += "Be sure writer name is correct\n"
-                        s += "Check for writer specific error messages\n"
-                        if params[:callback] == ''
-                           render plain: s
-                        else
-                           render json: s, callback: params[:callback]
-                        end
-                     end
-
-                  else
-                     render plain: 'Response format ' + @mdReturn[:writerOutputFormat] + ' not handled.'
-
-               end
-            else
-               # errors were found and will be returned to requester
-               # return plain text
-               request.format = 'plain'
-               s = ''
-               messages = ActiveSupport::HashWithIndifferentAccess.new(@responseInfo[:messages])
-               messages.each do |key, message|
-                  s += (key + ': ' + message.to_s + "\n")
-               end
-               if params[:callback] == ''
-                  render plain: s
-               else
-                  render json: s, callback: params[:callback]
-               end
-
-            end
-
-         when 'plain'
-            # text/plain was requested
-            # ... writeFormat is not considered
-            # all output to be returned as text/plain
-            # ... or JSONp if callback requested
-            if @responseInfo[:success]
-               # there were no validation errors
-               if params[:callback] == ''
-                  render plain: @responseInfo[:data]
-               else
-                  render json: @responseInfo[:data], callback: params[:callback]
-               end
-
-            else
-               # errors were found and will be returned to requester
-               s = ''
-               messages = ActiveSupport::HashWithIndifferentAccess.new(@responseInfo[:messages])
-               messages.each do |key, message|
-                  s += (key + ': ' + message.to_s + "\n")
-               end
-               if params[:callback] == ''
-                  render plain: s
-               else
-                  render json: s, callback: params[:callback]
-               end
-            end
-
-         when 'json'
-            # application/json was requested
-            # ... writeFormat is not considered
-            # ... mdTranslator success status is not considered
-            # full response from mdTranslator to be returned in json wrapper
-            # ... or returned as JSONp if callback requested
-            if params[:callback] == ''
-               render json: @responseInfo
-            else
-               render json: @responseInfo, callback: params[:callback]
-            end
-
-         when 'xml'
-            # application/xml was requested
-            # ... writeFormat is not considered
-            # ... mdTranslator success status is not considered
-            # full response from mdTranslator to be returned in xml wrapper
-            # ... or returned as JSONp if callback requested
-            if params[:callback] == ''
-               render xml: @responseInfo
-            else
-               render json: @responseInfo, callback: params[:callback]
-            end
-
+         # replace gem path in messages with '...'
+         aMessages = []
+         @responseInfo[:readerValidationMessages].each do |hMessage|
+            sMessage = hMessage.to_s
+            sMessage = sMessage.gsub(gem_path, '...')
+            aMessages << sMessage
+         end
+         @responseInfo[:readerValidationMessages] = aMessages
       end
+
+      if requestFormat == 'auto'
+         if @responseInfo[:success]
+            render xml: @responseInfo[:writerOutput] if @responseInfo[:writerOutputFormat] == 'xml'
+            render json: @responseInfo[:writerOutput] if @responseInfo[:writerOutputFormat] == 'json'
+            render inline: @responseInfo[:writerOutput] if @responseInfo[:writerOutputFormat] == 'html'
+            unless %w(xml json html).include?(@responseInfo[:writerOutputFormat])
+               if writerName == ''
+                  render plain: sPlain
+               else
+                  render plain: 'Requested format ' + @responseInfo[:writerOutputFormat] + ' not handled.'
+               end
+            end
+         else
+            render plain: sPlain
+         end
+      end
+
+      render plain: sPlain if requestFormat == 'plain'
+      render json: @responseInfo if requestFormat == 'json'
+      render xml: @responseInfo if requestFormat == 'xml'
 
    end
+
 end
