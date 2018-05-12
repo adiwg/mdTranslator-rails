@@ -40,8 +40,9 @@
 			<h2>Submit metadata to mdTranslator <%=Gem::Specification.find_by_name('adiwg-mdtranslator').version.to_s%></h2>
          </h2>
 			<ol type="1">
-				<li>Load an input metadata file. Modify if you like or paste your own. </li>
-            <li>Select 'reader', 'writer', and any desired option. </li>
+				<li>Load a sample input metadata file. Modify if you like; or paste in your own file. </li>
+            <li>Select 'reader' and 'writer'. </li>
+            <li>Select desired options. </li>
             <li>Click 'Submit' and translated metadata will be returned. </li>
             <li>For more info visit the
 				<a href="http://www.adiwg.org/mdTranslator">mdTranslator website</a>. </li>
@@ -67,92 +68,104 @@
          <textarea id="fgdcExample" hidden><%= @fgdcDemo %></textarea>
          <textarea id="sbJsonExample" hidden><%= @sbJsonDemo %></textarea>
 
-         <li id="li_2">
-				<label class="description" for="element_2">Reader</label>
-				<div>
-					<select class="element select medium" id="element_2" name="reader">
-                  <option value="mdJson" selected="selected">mdJson</option>
-                  <option value="fgdc">fgdc</option>
-                  <option value="sbJson">sbJson</option>
-					</select>
-				</div>
-				<p class="guidelines" id="guide_2">
-					<small>Select a Reader</small>
-				</p>
-			</li>
+         <p></p>
+         <li>
+            <label class="description">Select a Reader and Writer (Required)</label>
+            <div class="container">
+               <div class="fixed">
+                  <label class="description" for="element_2">Reader</label>
+                  <div>
+                     <select class="element select medium" id="element_2" name="reader">
+                        <option value="mdJson" selected="selected">mdJson</option>
+                        <option value="fgdc">fgdc</option>
+                        <option value="sbJson">sbJson</option>
+                     </select>
+                  </div>
+                  <p class="guidelines" id="guide_2">
+                     <small>Select a Reader</small>
+                  </p>
+               </div>
+               <div class="flex-item">
+                  <label class="description" for="element_3">Writer</label>
+                  <div>
+                     <select class="element select medium" id="element_3" name="writer">
+                        <option value="html" selected="selected">html</option>
+                        <option value="fgdc">fgdc</option>
+                        <option value="iso19115_2">iso19115_2</option>
+                        <option value="iso19110">iso19110</option>
+                        <option value="mdJson">mdJson</option>
+                        <option value="sbJson">sbJson</option>
+                        <option value="">-none-</option>
+                     </select>
+                  </div>
+                  <p class="guidelines" id="guide_2">
+                     <small>Select a Writer</small>
+                  </p>
+               </div>
+            </div>
+         </li>
 
-			<li id="li_3">
-				<label class="description" for="element_3">Writer</label>
-				<div>
-					<select class="element select medium" id="element_3" name="writer">
-                  <option value="html" selected="selected">html</option>
-                  <option value="fgdc">fgdc</option>
-                  <option value="iso19115_2">iso19115_2</option>
-						<option value="iso19110">iso19110</option>
-                  <option value="mdJson">mdJson</option>
-                  <option value="sbJson">sbJson</option>
-						<option value="">-none-</option>
-					</select>
-				</div>
-				<p class="guidelines" id="guide_2">
-					<small>Select a Writer</small>
-				</p>
-			</li>
-
-			<li id="li_4">
-				<label class="description" for="element_4">Include Empty Tags</label>
-				<div>
-					<select class="element select medium" id="element_4" name="showAllTags">
-						<option value="false" selected="selected">False</option>
-						<option value="true">True</option>
-					</select>
-				</div>
-				<p class="guidelines" id="guide_2">
-					<small>Select true or false</small>
-				</p>
-			</li>
-
-			<li id="li_5">
-				<label class="description" for="element_5">Input Validation</label>
-				<div>
-					<select class="element select medium" id="element_5" name="validate">
-						<option value="none">None</option>
-						<option value="normal" selected="selected">Normal</option>
-						<option value="strict">Strict</option>
-					</select>
-				</div>
-				<p class="guidelines" id="guide_2">
-					<small>Select validation level</small>
-				</p>
-			</li>
-
-			<li id="li_6">
-				<label class="description" for="element_6">Response Format</label>
-				<div>
-					<select class="element select medium" id="element_6" name="format">
-						<option value="auto" selected="selected">Auto</option>
-						<option value="plain">Plain</option>
-						<option value="json">JSON</option>
-						<option value="xml">XML</option>
-					</select>
-				</div>
-				<p class="guidelines" id="guide_2">
-					<small>Select a response format</small>
-				</p>
-			</li>
-
-			<li id="li_7">
-				<label class="description" for="element_7">Callback Name</label>
-				<div>
-					<input type="text" name="callback"/>
-				</div>
-				<p class="guidelines" id="guide_2">
-					<small>Enter a callback name to receive a JSONp response</small>
-				</p>
-			</li>
+         <p></p>
+         <li>
+            <label class="description">Options</label>
+            <div class="container">
+               <div class="fixed">
+                  <label class="description" for="element_4">mdJson Validation</label>
+                  <div>
+                     <select class="element select medium" id="element_4" name="validate">
+                        <option value="none">None</option>
+                        <option value="normal" selected="selected">Normal</option>
+                        <option value="strict">Strict</option>
+                     </select>
+                  </div>
+                  <p class="guidelines" id="guide_2">
+                     <small>Set validation level</small>
+                  </p>
+               </div>
+               <div class="flex-item">
+                  <label class="description" for="element_5">Include Empty Tags</label>
+                  <div>
+                     <select class="element select medium" id="element_5" name="showAllTags">
+                        <option value="false" selected="selected">False</option>
+                        <option value="true">True</option>
+                     </select>
+                  </div>
+                  <p class="guidelines" id="guide_2">
+                     <small>Show empty tags for missing values</small>
+                  </p>
+               </div>
+               <div class="flex-item">
+                  <label class="description" for="element_6">Force Valid Output</label>
+                  <div>
+                     <select class="element select medium" id="element_6" name="forceValid">
+                        <option value="true"selected="selected">true</option>
+                        <option value="false">false</option>
+                     </select>
+                  </div>
+                  <p class="guidelines" id="guide_2">
+                     <small>Make output valid or fail</small>
+                  </p>
+               </div>
+               <div class="flex-item">
+                  <label class="description" for="element_7">Response Format</label>
+                  <div>
+                     <select class="element select medium" id="element_7" name="format">
+                        <option value="auto" selected="selected">Auto</option>
+                        <option value="plain">Plain</option>
+                        <option value="json">JSON</option>
+                        <option value="xml">XML</option>
+                     </select>
+                  </div>
+                  <p class="guidelines" id="guide_2">
+                     <small>Select response format</small>
+                  </p>
+               </div>
+            </div>
+         </li>
 
 		</ul>
 
+      <p></p>
 		<div class="buttons">
 			<input type="hidden" name="form_id" value="759352"/>
 			<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>

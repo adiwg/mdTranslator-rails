@@ -137,7 +137,7 @@ td { vertical-align: top; }
     font-size: 80%;
     margin: 0;
     width: 99%;
-    min-height: 6em;
+    min-height: 12em;
     resize: vertical;
 }
 
@@ -210,4 +210,14 @@ td { vertical-align: top; }
         -o-transform: rotate(45deg);
         box-shadow: 4px 4px 10px rgba(0,0,0,0.8);
     }
+}
+
+.container {
+    display: flex;
+}
+.fixed {
+    width: 200px;
+}
+.flex-item {
+    flex-grow: 1;
 }
