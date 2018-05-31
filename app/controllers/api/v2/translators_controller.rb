@@ -8,7 +8,7 @@
 # REST endpoint controller for ruby gem adiwg-mdtranslator
 
 # History:
-#  Stan Smith 2018-05-07 for 'plain' response to return all parameters in formatted text
+#  Stan Smith 2018-05-07 return all parameters in formatted text for 'plain' response
 #  Stan Smith 2018-05-07 remove JSONp callback - obsolete
 #  Stan Smith 2018-05-04 add 'forceValid' flag
 #  Stan Smith 2017-12-27 fix bug from rename of responseObj[:writerFormat] to [:writerOutputFormat]
