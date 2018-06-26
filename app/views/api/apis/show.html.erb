@@ -76,10 +76,10 @@
        : the input file to be translated by mdTranslator.<br>
           the format of the file must be provided in the 'reader=' option.
       >
-      > __reader__= (string) *required*
+      > __reader__= [mdJson | fgdc | sbJson] *required*
        : specifies a reader for the mdTranslator
       >
-      > __writer__= (string)
+      > __writer__= [html | fgdc | iso19115_2 | iso19110 | mdJson | sbJson]
        : specifies a writer for the mdTranslator; <br> a null writer will validate input only
       >
       > __validate__= [none | __normal__ | strict]
