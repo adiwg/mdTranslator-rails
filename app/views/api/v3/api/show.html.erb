@@ -1,0 +1,215 @@
+<!--
+# Alaska Data Integration working group - ADIwg
+
+# REST endpoint controller for description of api
+-->
+
+<h2 id="mainHeader">
+    <%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
+    <span>API version 3</span>
+    <span class="version">Reference</span>
+</h2>
+
+<%
+   doc = <<~MARKDOWN.gsub(/APP_ROOT/, ENV['RAILS_RELATIVE_URL_ROOT'] || '')
+
+      ## Documentation and Lists
+
+      ### GET
+
+       * __.../__ # returns the welcome page with information and links about the mdTranslator
+       * __...[/api/readers](APP_ROOT/api/readers)__ # returns a list of support mdTranslator readers
+       * __.../api/readers/{reader}__ # returns documentation for a specific mdTranslator reader
+       * __...[/api/writers](APP_ROOT/api/writers)__ # returns a list of support mdTranslator readers
+       * __.../api/writers/{writer}__ # returns documentation for a specific mdTranslator reader
+
+      ---
+
+       * __...[/api/codelists](APP_ROOT/api/codelists.json)__ # returns a JSON or [XML](APP_ROOT/api/codelists.xml) object with all codeLists from mdCodes <br>
+         - for codelists in ISO CT_CodelistCatalogue format use .../api/codelists.xml
+         - for codelists in a JSON object use .../api/codelists.json
+           - add definitions="true" to include code descriptions .../api/codelists?format=json&definitions=true
+           - add showDeprecated="true" to include deprecated codes .../api/codelists?format=json&showDeprecated=true
+           - add callback="{callbackName}" for JSONp .../api/codelists?format=json&callback=myJsonP
+       * __.../api/codelists/{codeListName}__ # returns a JSON object with a specified codeList
+           - add definitions="true" to include code descriptions .../api/codelists/iso_role?definitions=true
+           - add showDeprecated="true" to include deprecated codes .../api/codelists?format=json&showDeprecated=true
+           - add callback="{callbackName}" for JSONp .../api/codelists/iso_role?callback=myJsonP
+
+      ---
+
+       * __...[/api](APP_ROOT/api)__ # returns documentation on the mdTranslator API
+       * __.../api/v3__ # returns documentation on the mdTranslator API (alternate link)
+       * __...[/api/v3/options](APP_ROOT/api/v3/options)__ # returns a JSON object with all supported mdTranslator options;
+         - intended for loading mdTranslator option lists into automated tools
+         - use option callback="{callbackName}" for JSONp
+       * __...[/api/v3/demo](APP_ROOT/api/v3/demo)__ # access to demo page to view and test mdTranslator options
+
+      ---
+
+      ## Translator Methods
+
+      ### GET
+
+       * __.../api/v3/translator?{options}__ # returns metadata from the mdTranslator according to options specified
+         - accepts requests with options encoded as key-value pairs in the query string.
+         - only recommended for use when JSONp is required, i.e. for clients without CORS support.
+         - **Note**: subject to URI size limits
+
+      ### POST
+
+       * __.../api/v3/translator?{options}__ # returns metadata from the mdTranslator according to options specified
+         - accepts *application/x-www-form-urlencoded* requests with options encoded as key-value pairs.
+
+      ### Options
+      > __file__ (string) *required*
+       : the input file to be translated by mdTranslator.<br>
+          the format of the file must be provided in the 'reader=' option.
+      >
+      > __reader__= [mdJson | fgdc | sbJson] *required*
+       : specifies a reader for the mdTranslator
+      >
+      > __writer__= [html | fgdc | iso19115_2 | iso19110 | mdJson | sbJson]
+       : specifies a writer for the mdTranslator; <br> a null writer will validate input only
+      >
+      > __validate__= [none | __normal__ | strict]
+       :
+      >
+      >> __none__
+      >> : the input is not validated
+      >>
+      >> __normal__
+      >> : the input must meet the structural rules for the file format; <br>
+          the input must meet the minimum rule set defined by the reader schema
+      >>
+      >> __strict__
+      >> : the input must meet the structural rules for the file format; <br>
+          the input must meet the maximum rule set defined by the reader schema, all fields must have values
+      >
+      > __showAllTags__= [true | __false__]
+       : show empty tags for all attributes that did not have values
+      >
+      > __forceValid__= [__true__ | false]
+       :
+      >
+      >> __true__
+      >> : force writer to meet the output standard when required user content is not provided; <br>
+        for ISO metadata the nilReason="missing" attribute is added to tags of missing required elements and sections; <br>
+        for FGDC metadata a value of "missing" is substituted for missing element values, missing required sections
+        will force an ERROR condition
+      >>
+      >> __false__
+      >> : missing required user content will cause ERROR condition
+      >
+      > __format__= [__auto__ | plain | json | xml]
+       :
+      >
+      >> __auto__
+      >> : content-type is set according to the writer; <br>
+          if a writer was not specified the content-type will be set to 'text/plain'; <br>
+          if validation errors prevent the writer from generating a return, messages will be returned as 'text/plain'; <br>
+          if error messages are returned from the writer, a wrapper will be added with the content-type set according to the writer
+      >>
+      >> __plain__
+      >> : content-type="text/plain"; <br>
+          return mdTranslator results in plain text; <br>
+          if validation or translator messages are detected, only the messages will be returned
+      >>
+      >> __json__
+      >> : content-type="application/json" <br>
+           results are placed in a JSON wrapper
+      >>
+      >> __xml__
+      >> : content-type="application/xml"; <br>
+           results are placed in an XML wrapper
+      >
+      >
+      > __callback__= (string) default=null
+      > : when provided, a JSONp response if returned using the callback name provided; <br>
+         - content-type is not set in the response header
+
+      ---
+
+      ## Translator Return Object
+
+      The mdTranslator returns a JSON hash with all parameters used for the translation, messages generated during
+      the translation, and the result of the translation.  Several additional elements are added by the API and are so
+      identified in the following table.
+
+      > __success__ (Boolean) _added by the API_
+        : Success of the translation.  'true' if no ERROR messages were generated by the mdTranslator during parsing,
+        reading of the input file, or writing to the requested format.
+      >
+      > __readerStructureStatus__ (enumerated) [ 'OK' | 'NOTICE' | 'WARNING' | 'ERROR' ] _added by the API_
+        : Level of most severe message(s) returned by the translator during parsing and evaluation of the input file. <br>
+        'OK' indicates no messages were generated.
+      >
+      > __readerStructureMessages__ (array of strings)
+        : Messages return during parsing and evaluation of the input file.
+      >
+      > __readerValidationStatus__ (enumerated) [ 'OK' | 'NOTICE' | 'WARNING' | 'ERROR' ] _added by the API_
+        : Level of most severe message(s) returned by the translator during validation of the input file's schema.
+        Note this step only applies to input files in the mdJson format.<br>
+        'OK' indicates no messages were generated.
+      >
+      > __readerValidationMessages__ (array of strings)
+        : Messages return during schema validation of the input file.
+      >
+      > __readerExecutionStatus__ (enumerated) [ 'OK' | 'NOTICE' | 'WARNING' | 'ERROR' ] _added by the API_
+        : Level of most severe message(s) returned by the translator during reading of the input file into the
+        translator's internal format. <br>
+        'OK' indicates no messages were generated.
+      >
+      > __readerExecutionMessages__ (array of strings)
+        : Messages return during reading the input file into the translator's internal format.
+      >
+      > __writerStatus__ (enumerated) [ 'OK' | 'NOTICE' | 'WARNING' | 'ERROR' ] _added by the API_
+        : Level of most severe message(s) returned by the translator during writing the metadata into the requested format. <br>
+        'OK' indicates no messages were generated.
+      >
+      > __writerMessages__ (array of strings)
+        : Messages return during writing the metadata into the requested format.
+      >
+      > __readerRequested__ (string)
+        : Name of the reader selected to read the input file.
+      >
+      > __readerVersionRequested__ (string)
+        : Version of the reader selected to read the input file. Note this applies only to the mdJson reader.
+      >
+      > __readerVersionUsed__ (string)
+        : Version of the reader used to read the input file.
+      >
+      > __writerRequested__ (string)
+        : Name of the writer selected to generate the output metadata file.
+      >
+      > __writerVersion__ (string)
+        : Version of the writer used to generate the output metadata file.
+      >
+      > __writerOutputFormat__ (enumerated) [ xml | json | html ]
+        : Format of the output metadata file.
+      >
+      > __writerForceValid__ (Boolean) [ true | false ]
+        : 'true' if the user requested missing required elements to be marked as 'missing' so that the output
+        metadata record meets the published standard.
+      >
+      > __writerShowTags__ (Boolean) [ true | false ]
+        : 'true' if the user requested missing elements to be represented by empty tags.
+      >
+      > __writerCSSlink__ (string)
+        : A link to a CSS file to be added to the HTML writer header for personalizing HTML output.
+      >
+      > __writerMissingIdCount__ (string)
+        : Next ID number the translator will use when the user has not provided an ID for elements that require IDs.
+      >
+      > __translatorVersion__ (string)
+        : Version of the mdTranslator used to generate this return.
+      >
+      > __writerOutput__ (string)
+        : The returned metadata record.  The string may be in XML, JSON, or HTML format as identified by
+        __writerOutputFormat__ (see above).
+
+      ---
+
+MARKDOWN
+%>
+<%= Kramdown::Document.new(doc).to_html.html_safe %>

@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+
+ .nav {
+   height: 40px; /* set same as height & line-height below */
+ }
+
+ /* This rule centers the nav items verticaly in the bar with the height and line height properties. Spacing between the nav items is controlled by setting right and left padding.  */
+ .nav li {
+   display: inline-block;
+   height: 40px; /* should be the same as line-height */
+   line-height: 40px; /* should be the same as height */
+   list-style: none;
+   padding: 0 20px; /* "0" sets top and bottom padding to none */
+ }
+
+ .nav li a {
+   color: #0754cf;
+ }
+
+ .nav .active {
+   color: #E07F0A;
+ }
+
+ .nav li a:hover {
+   color: #0645ad;
+   transition: color .3s;
+ }
+
+ .nav-link {
+   text-decoration: none;
+ }
