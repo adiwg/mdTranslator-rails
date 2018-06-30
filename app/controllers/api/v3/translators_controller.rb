@@ -31,7 +31,7 @@
 require 'pp'
 
 class Api::V3::TranslatorsController < ApplicationController
-
+   include Util
    # Gets
    # not supported
 
@@ -122,41 +122,18 @@ class Api::V3::TranslatorsController < ApplicationController
       @responseInfo[:success] = false unless @mdReturn[:readerExecutionPass]
       @responseInfo[:success] = false unless @mdReturn[:writerPass]
 
-      # build lightly formatted string for 'plain' text rendering
-      sPlain = ''
-      @responseInfo.each do |key, value|
-         if key.to_s == 'writerOutput'
-            sPlain += "\n" + key.to_s + ': ' + "\n"
-            sPlain += value.to_s + "\n"
-         end
-         sPlain += key.to_s + ': '
-         if value.kind_of?(Array)
-            sPlain += "\n"
-            value.each do |item|
-               sPlain += '   ' + item + "\n"
-            end
-         else
-            sPlain += value.to_s + "\n"
-         end
-      end
 
       # the json schema validator returns expanded folder/file path names to gem
       # these path names may pose a security risk and are removed from the messages
       # find gem path and removed it from messages
       unless @responseInfo[:readerValidationStatus] == 'OK'
-         gem_root = ADIWG::MdjsonSchemas::Utils.schema_dir.match(/(^.+)\/lib/i).captures[0]
-         gem_path = File.join(gem_root, 'schema')
-         gem_path[0] = gem_path[0].downcase
-
-         # replace gem path in messages with '...'
-         aMessages = []
-         @responseInfo[:readerValidationMessages].each do |hMessage|
-            sMessage = hMessage.to_s
-            sMessage = sMessage.gsub(gem_path, '...')
-            aMessages << sMessage
+         each_recur(@responseInfo[:readerValidationMessages]) do |elem, idx, arr|
+           arr[idx]=sanitize(elem)
          end
-         @responseInfo[:readerValidationMessages] = aMessages
       end
+
+      # build lightly formatted string for 'plain' text rendering
+      #sPlain = iterate(@responseInfo)
 
       if requestFormat == 'auto'
          if @responseInfo[:success]
@@ -165,20 +142,21 @@ class Api::V3::TranslatorsController < ApplicationController
             render inline: @responseInfo[:writerOutput] if @responseInfo[:writerOutputFormat] == 'html'
             unless %w(xml json html).include?(@responseInfo[:writerOutputFormat])
                if writerName == ''
-                  render plain: sPlain
+                  render plain: format_plain(@responseInfo)
                else
                   render plain: 'Requested format ' + @responseInfo[:writerOutputFormat] + ' not handled.'
                end
             end
          else
-            render plain: sPlain
+            render plain: format_plain(@responseInfo)
          end
       end
 
-      render plain: sPlain if requestFormat == 'plain'
+      render plain: format_plain(@responseInfo) if requestFormat == 'plain'
       render json: @responseInfo if requestFormat == 'json'
       render xml: @responseInfo if requestFormat == 'xml'
 
    end
 
+   alias_method :show, :create
 end

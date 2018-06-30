@@ -31,7 +31,7 @@
 require 'pp'
 
 class Api::V2::TranslatorsController < ApplicationController
-
+  include Util
    # Gets
    # not supported
 
@@ -122,41 +122,49 @@ class Api::V2::TranslatorsController < ApplicationController
       @responseInfo[:success] = false unless @mdReturn[:readerExecutionPass]
       @responseInfo[:success] = false unless @mdReturn[:writerPass]
 
-      # build lightly formatted string for 'plain' text rendering
-      sPlain = ''
-      @responseInfo.each do |key, value|
-         if key.to_s == 'writerOutput'
-            sPlain += "\n" + key.to_s + ': ' + "\n"
-            sPlain += value.to_s + "\n"
-         end
-         sPlain += key.to_s + ': '
-         if value.kind_of?(Array)
-            sPlain += "\n"
-            value.each do |item|
-               sPlain += '   ' + item + "\n"
-            end
-         else
-            sPlain += value.to_s + "\n"
-         end
-      end
-
       # the json schema validator returns expanded folder/file path names to gem
       # these path names may pose a security risk and are removed from the messages
       # find gem path and removed it from messages
       unless @responseInfo[:readerValidationStatus] == 'OK'
-         gem_root = ADIWG::MdjsonSchemas::Utils.schema_dir.match(/(^.+)\/lib/i).captures[0]
-         gem_path = File.join(gem_root, 'schema')
-         gem_path[0] = gem_path[0].downcase
-
-         # replace gem path in messages with '...'
-         aMessages = []
-         @responseInfo[:readerValidationMessages].each do |hMessage|
-            sMessage = hMessage.to_s
-            sMessage = sMessage.gsub(gem_path, '...')
-            aMessages << sMessage
+         each_recur(@responseInfo[:readerValidationMessages]) do |elem, idx, arr|
+           arr[idx]=sanitize(elem)
          end
-         @responseInfo[:readerValidationMessages] = aMessages
       end
+
+
+      # NOTE: to format for expected v2 response
+      responseV2 = {
+        success: @responseInfo[:success],
+        messages: {
+          :readerRequested => @responseInfo[:readerRequested],
+          :readerVersionRequested => @responseInfo[:readerVersionRequested],
+          :readerVersionUsed =>@responseInfo[:readerVersionUsed],
+          :readerStructurePass =>@responseInfo[:readerStructureStatus] != 'ERROR',
+          :readerStructureMessages =>@responseInfo[:readerStructureMessages],
+          :readerValidationLevel =>@responseInfo[:readerValidationLevel],
+          :readerValidationPass =>@responseInfo[:readerValidationStatus] != 'ERROR',
+          :readerValidationMessages =>@responseInfo[:readerValidationMessages],
+          readerExecutionPass: @responseInfo[:readerExecutionStatus]  != 'ERROR',
+          readerExecutionMessages: @responseInfo[:readerExecutionMessages],
+          writerRequested: @responseInfo[:writerRequested],
+          writerVersion: @responseInfo[:writerVersion],
+          writerPass: @responseInfo[:writerStatus] != 'ERROR',
+          writerMessages: @responseInfo[:writerMessages],
+          writerOutputFormat: @responseInfo[:writerOutputFormat],
+          writerOutput: @responseInfo[:writerOutput],
+          writerForceValid: @responseInfo[:writerForceValid],
+          writerShowTags: @responseInfo[:writerShowTags],
+          writerCSSlink: @responseInfo[:writerCSSlink],
+          writerMissingIdCount: @responseInfo[:writerMissingIdCount],
+          translatorVersion: @responseInfo[:translatorVersion] },
+        data: @responseInfo[:writerOutput] }
+
+
+      # build lightly formatted string for 'plain' text rendering
+      sPlain = format_plain(responseV2).sub("messages:\n",'')
+
+      #leave messages but don't replicate writerOutput
+      responseV2[:messages].delete(:writerOutput)
 
       if requestFormat == 'auto'
          if @responseInfo[:success]
@@ -176,9 +184,9 @@ class Api::V2::TranslatorsController < ApplicationController
       end
 
       render plain: sPlain if requestFormat == 'plain'
-      render json: @responseInfo if requestFormat == 'json'
-      render xml: @responseInfo if requestFormat == 'xml'
-
+      render json: responseV2 if requestFormat == 'json'
+      render xml: responseV2 if requestFormat == 'xml'
    end
 
+   alias_method :show, :create
 end
