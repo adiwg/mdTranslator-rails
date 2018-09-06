@@ -51,7 +51,7 @@ gem 'json-schema'
 # Alaska Data Integration working group schema definition
 gem 'adiwg-mdjson_schemas', '~> 2.4.9'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 2.13.2'
+gem 'adiwg-mdtranslator', '~> 2.13.3'
 # Alaska Data Integration working group metadata code lists
 gem 'adiwg-mdcodes', '~> 2.6.3'
 
