@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '>=2.4.0'
 
 #use unicorn server
 platforms :ruby do # linux
@@ -51,7 +51,7 @@ gem 'json-schema'
 # Alaska Data Integration working group schema definition
 gem 'adiwg-mdjson_schemas', '~> 2.4.8'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 2.13.0'
+gem 'adiwg-mdtranslator', '~> 2.13.1'
 # Alaska Data Integration working group metadata code lists
 gem 'adiwg-mdcodes', '~> 2.6.3'
 
@@ -76,4 +76,4 @@ gem 'rails_12factor', group: :production
 # CORS support
 gem 'rack-cors'
 # timeout
-gem 'rack-timeout'
+gem 'rack-timeout', '~> 0.4.2'
