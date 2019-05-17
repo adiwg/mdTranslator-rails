@@ -21,7 +21,7 @@
 #  Stan Smith 2014-11-10 remove absolute path information from error messages
 #  Stan Smith 2014-11-10 return all messageObject detail when
 #  ... mdTranslator returns error messages
-#  Stan Smith 2014-11-10 routed empty endpoint api/v2/codelists to api/codelists
+#  Stan Smith 2014-11-10 routed empty endpoint api/V3/codelists to api/codelists
 #  Stan Smith 2014-10-09 version 1 ready
 #  Stan Smith 2014-10-09 implemented changes suggested by Will Fisher, UAF
 # 	Stan Smith 2014-09-05 migration to Rails 4.1.1 for implementation
@@ -30,13 +30,13 @@
 
 require 'pp'
 
-class Api::V2::TranslatorsController < ApplicationController
-  include Util
+class Api::V3::TranslatorsController < ApplicationController
+   include Util
    # Gets
    # not supported
 
    # POSTs
-   # ...api/v2/translator
+   # ...api/V3/translator
    def create
 
       # load file and parameter from POST
@@ -122,6 +122,7 @@ class Api::V2::TranslatorsController < ApplicationController
       @responseInfo[:success] = false unless @mdReturn[:readerExecutionPass]
       @responseInfo[:success] = false unless @mdReturn[:writerPass]
 
+
       # the json schema validator returns expanded folder/file path names to gem
       # these path names may pose a security risk and are removed from the messages
       # find gem path and removed it from messages
@@ -131,40 +132,8 @@ class Api::V2::TranslatorsController < ApplicationController
          end
       end
 
-
-      # NOTE: to format for expected v2 response
-      responseV2 = {
-        success: @responseInfo[:success],
-        messages: {
-          :readerRequested => @responseInfo[:readerRequested],
-          :readerVersionRequested => @responseInfo[:readerVersionRequested],
-          :readerVersionUsed =>@responseInfo[:readerVersionUsed],
-          :readerStructurePass =>@responseInfo[:readerStructureStatus] != 'ERROR',
-          :readerStructureMessages =>@responseInfo[:readerStructureMessages],
-          :readerValidationLevel =>@responseInfo[:readerValidationLevel],
-          :readerValidationPass =>@responseInfo[:readerValidationStatus] != 'ERROR',
-          :readerValidationMessages =>@responseInfo[:readerValidationMessages],
-          readerExecutionPass: @responseInfo[:readerExecutionStatus]  != 'ERROR',
-          readerExecutionMessages: @responseInfo[:readerExecutionMessages],
-          writerRequested: @responseInfo[:writerRequested],
-          writerVersion: @responseInfo[:writerVersion],
-          writerPass: @responseInfo[:writerStatus] != 'ERROR',
-          writerMessages: @responseInfo[:writerMessages],
-          writerOutputFormat: @responseInfo[:writerOutputFormat],
-          writerOutput: @responseInfo[:writerOutput],
-          writerForceValid: @responseInfo[:writerForceValid],
-          writerShowTags: @responseInfo[:writerShowTags],
-          writerCSSlink: @responseInfo[:writerCSSlink],
-          writerMissingIdCount: @responseInfo[:writerMissingIdCount],
-          translatorVersion: @responseInfo[:translatorVersion] },
-        data: @responseInfo[:writerOutput] }
-
-
       # build lightly formatted string for 'plain' text rendering
-      sPlain = format_plain(responseV2).sub("messages:\n",'')
-
-      #leave messages but don't replicate writerOutput
-      responseV2[:messages].delete(:writerOutput)
+      #sPlain = iterate(@responseInfo)
 
       if requestFormat == 'auto'
          if @responseInfo[:success]
@@ -173,19 +142,20 @@ class Api::V2::TranslatorsController < ApplicationController
             render inline: @responseInfo[:writerOutput] if @responseInfo[:writerOutputFormat] == 'html'
             unless %w(xml json html).include?(@responseInfo[:writerOutputFormat])
                if writerName == ''
-                  render plain: sPlain
+                  render plain: format_plain(@responseInfo)
                else
                   render plain: 'Requested format ' + @responseInfo[:writerOutputFormat] + ' not handled.'
                end
             end
          else
-            render plain: sPlain
+            render plain: format_plain(@responseInfo)
          end
       end
 
-      render plain: sPlain if requestFormat == 'plain'
-      render json: responseV2 if requestFormat == 'json'
-      render xml: responseV2 if requestFormat == 'xml'
+      render plain: format_plain(@responseInfo) if requestFormat == 'plain'
+      render json: @responseInfo if requestFormat == 'json'
+      render xml: @responseInfo if requestFormat == 'xml'
+
    end
 
    alias_method :show, :create

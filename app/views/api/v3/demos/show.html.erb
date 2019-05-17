@@ -7,7 +7,7 @@
 #  Stan Smith 2019-05-16 added iso19115-1 writer
 #  Stan Smith 2017-12-27 moved input textarea to top of page
 #  Stan Smith 2017-12-27 reworded page text to support other than mdJson input
-#  Stan Smith 2017-05-19 refactored v1 demo for v2
+#  Stan Smith 2017-05-19 refactored v1 demo for v3
 #  Stan Smith 2017-06-30 add buttons to insert mdJson or sbJson into JSON textarea
 -->
 <script type="text/javascript">
@@ -32,11 +32,11 @@
 <h2 id="mainHeader">
 	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
 	<span>API</span>
-	<span class="version">Demo V2</span>
+	<span class="version">Demo v3</span>
 </h2>
 
 <div id="form_container">
-	<%= form_tag((ENV['RAILS_RELATIVE_URL_ROOT'] ? ENV['RAILS_RELATIVE_URL_ROOT'] : "") + "/api/v2/translator", id: "submitJSON") do %>
+	<%= form_tag((ENV['RAILS_RELATIVE_URL_ROOT'] ? ENV['RAILS_RELATIVE_URL_ROOT'] : "") + "/api/v3/translator", id: "submitJSON") do %>
 		<div class="form_description">
 			<h2>Submit metadata to mdTranslator <%=Gem::Specification.find_by_name('adiwg-mdtranslator').version.to_s%></h2>
          </h2>

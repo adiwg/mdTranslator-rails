@@ -10,7 +10,7 @@
 
 class Option
    def self.getOptionList
-      hOptions = {
+      {
          reader: %w[mdJson sbJson fgdc],
          writer: %w[iso19115_2 iso19110 html mdJson sbJson fgdc],
          format: %w[auto plain json xml],
