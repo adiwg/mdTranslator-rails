@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.4'
+ruby '2.5.1'
 
 #use unicorn server
 platforms :ruby do # linux
@@ -51,9 +51,9 @@ gem 'json-schema'
 # Alaska Data Integration working group schema definition
 gem 'adiwg-mdjson_schemas', '~> 2.6.3'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 2.14.2'
+gem 'adiwg-mdtranslator', '~> 2.15'
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '~> 2.7.2'
+gem 'adiwg-mdcodes', '~> 2.7.5'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
