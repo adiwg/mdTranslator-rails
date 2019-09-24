@@ -44,12 +44,12 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    adiwg-mdcodes (2.7.5)
+    adiwg-mdcodes (2.8.0)
       json (~> 2.0)
-    adiwg-mdjson_schemas (2.6.3)
-    adiwg-mdtranslator (2.15.0)
-      adiwg-mdcodes (~> 2.7)
-      adiwg-mdjson_schemas (>= 2.6)
+    adiwg-mdjson_schemas (2.7.0)
+    adiwg-mdtranslator (2.16.1)
+      adiwg-mdcodes (~> 2.8)
+      adiwg-mdjson_schemas (>= 2.7)
       builder (~> 3.2)
       coderay (~> 1.1)
       jbuilder (~> 2.5)
@@ -73,7 +73,7 @@ GEM
     crass (1.0.4)
     erubi (1.7.1)
     execjs (2.7.0)
-    ffi (1.11.0)
+    ffi (1.11.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.1.1)
@@ -108,7 +108,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     pg (1.1.3)
     public_suffix (3.0.3)
-    rack (2.0.5)
+    rack (2.0.7)
     rack-cors (1.0.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -186,9 +186,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  adiwg-mdcodes (~> 2.7.5)
-  adiwg-mdjson_schemas (~> 2.6.3)
-  adiwg-mdtranslator (~> 2.15)
+  adiwg-mdcodes (~> 2.8.0)
+  adiwg-mdjson_schemas (~> 2.7.0)
+  adiwg-mdtranslator (~> 2.16.1)
   builder
   coderay
   coffee-rails
