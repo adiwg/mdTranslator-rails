@@ -153,11 +153,6 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.5)
-    rails_stdout_logging (0.0.5)
     railties (6.0.4.7)
       actionpack (= 6.0.4.7)
       activesupport (= 6.0.4.7)
@@ -227,7 +222,6 @@ DEPENDENCIES
   rack-cors
   rack-timeout
   rails
-  rails_12factor
   sassc-rails
   sdoc (~> 1.0.0.rc)
   sqlite3

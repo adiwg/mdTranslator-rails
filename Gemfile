@@ -75,8 +75,6 @@ gem 'coderay'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # added x64_mingw for Windows x64 operating systems
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
-# assets for heroku
-gem 'rails_12factor', group: :production
 # CORS support
 gem 'rack-cors'
 # timeout
