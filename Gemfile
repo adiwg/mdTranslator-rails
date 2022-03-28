@@ -19,6 +19,10 @@ group :production do
   gem 'pg'
 end
 
+gem 'puma', '~> 4.3.11'
+
+gem 'bootsnap', '>= 1.4.2', require: false
+
 # Use SCSS for stylesheets
 gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
