@@ -10,24 +10,6 @@
 #  Stan Smith 2017-05-19 refactored v1 demo for v2
 #  Stan Smith 2017-06-30 add buttons to insert mdJson or sbJson into JSON textarea
 -->
-<script type="text/javascript">
-   function insertText(exampleCode) {
-      if (exampleCode == 'mdJson') {
-         var elem = document.getElementById('codeTextarea');
-         var elemSource = document.getElementById('mdJsonExample');
-      }
-      if (exampleCode == 'fgdc') {
-         var elem = document.getElementById('codeTextarea');
-         var elemSource = document.getElementById('fgdcExample');
-      }
-      if (exampleCode == 'sbJson') {
-         var elem = document.getElementById('codeTextarea');
-         var elemSource = document.getElementById('sbJsonExample');
-      }
-      elem.value = elemSource.value;
-      document.getElementById('element_2').value = exampleCode;
-   }
-</script>
 
 <h2 id="mainHeader">
 	<%= image_tag "logo150.png", alt: "mdTranslator", class: "logo" %>
@@ -173,5 +155,28 @@
 			<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>
 		</div>
 	<% end %>
+
+   <%= javascript_tag nonce: true do -%>
+      function insertText(exampleCode) {
+         if (exampleCode == 'mdJson') {
+            var elem = document.getElementById('codeTextarea');
+            var elemSource = document.getElementById('mdJsonExample');
+         }
+         if (exampleCode == 'fgdc') {
+            var elem = document.getElementById('codeTextarea');
+            var elemSource = document.getElementById('fgdcExample');
+         }
+         if (exampleCode == 'sbJson') {
+            var elem = document.getElementById('codeTextarea');
+            var elemSource = document.getElementById('sbJsonExample');
+         }
+         elem.value = elemSource.value;
+         document.getElementById('element_2').value = exampleCode;
+      }
+
+      document.getElementById('loadMdJson').addEventListener('click', () => insertText('mdJson'));
+      document.getElementById('loadFgdc').addEventListener('click', () => insertText('fgdc'));
+      document.getElementById('loadSbJson').addEventListener('click', () => insertText('sbJson'));
+   <% end -%>
 
 </div>
