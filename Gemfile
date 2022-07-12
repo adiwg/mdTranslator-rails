@@ -53,9 +53,9 @@ gem 'uuidtools'
 # Use json_schema as schema validator
 gem 'json-schema'
 # Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '~> 2.7.0'
+gem 'adiwg-mdjson_schemas', '~> 2.8.0.pre.beta'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 2.17.1'
+gem 'adiwg-mdtranslator', '~> 2.18.0rc1'
 # Alaska Data Integration working group metadata code lists
 gem 'adiwg-mdcodes', '~> 2.8.0'
 
