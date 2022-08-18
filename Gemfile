@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.6.4'
+ruby '~> 2.7.5'
 
 #use unicorn server
 platforms :ruby do # linux
@@ -18,6 +18,10 @@ end
 group :production do
   gem 'pg'
 end
+
+gem 'puma', '~> 4.3.11'
+
+gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use SCSS for stylesheets
 gem 'sassc-rails'
@@ -71,8 +75,6 @@ gem 'coderay'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # added x64_mingw for Windows x64 operating systems
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
-# assets for heroku
-gem 'rails_12factor', group: :production
 # CORS support
 gem 'rack-cors'
 # timeout

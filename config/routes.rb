@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   get 'demo' => 'api/v3/demos#show'
+  get 'status' => 'status#show'
+  
   namespace :api do
     get '/' => 'apis#show'
     resource :apis, only: [:show]
