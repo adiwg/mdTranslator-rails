@@ -79,3 +79,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'rack-cors'
 # timeout
 gem 'rack-timeout'
+
+gem 'rack-proxy'
