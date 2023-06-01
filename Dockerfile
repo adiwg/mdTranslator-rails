@@ -1,5 +1,5 @@
 # Use a smaller base image
-FROM ruby:2.7.8-buster AS base
+FROM ruby:2.7.4-slim AS base
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs \
     build-essential
@@ -18,8 +18,9 @@ COPY . .
 RUN bundle exec rails assets:precompile RAILS_ENV=production
 
 # Use a smaller base image for the final container
-FROM ruby:2.7.8-alpine
-RUN apk add nodejs
+FROM ruby:2.7.4-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nodejs
 # RUN apt-get update && apt-get install -y --no-install-recommends
 
 # Set the working directory
