@@ -15,9 +15,9 @@ group :development do
 end
 
 #for heroku
-group :production do
-  gem 'pg'
-end
+# group :production do
+#   gem 'pg'
+# end
 
 gem 'puma', '~> 4.3.11'
 
