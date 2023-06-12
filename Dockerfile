@@ -21,7 +21,6 @@ RUN bundle exec rails assets:precompile RAILS_ENV=production
 FROM ruby:2.7.4-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs
-# RUN apt-get update && apt-get install -y --no-install-recommends
 
 # Set the working directory
 WORKDIR /app
