@@ -40,6 +40,18 @@ http://localhost:3000
 
 Click on "demo" link to do some metadata translations
 
-## Bonus! Forget all that and just run a Docker
+## Run via Docker
 
-docker run -d -p 3000:3000 derekjwilliams/mdtranslator-rails:latest
+docker build --name mdtranslator-rails
+docker run -d -p 3000:3000 mdtranslator-rails
+
+## Sentry.io Logging Support
+
+If you would like to take advance of Sentry.io you can create your own account then pass in the appropriate values. Configuration settings can be found in `config/initializers/sentry.rb`. It will not be used if the ENV "SENTRY_DSN" value is not passed in.
+
+Using PowerShell
+
+```shell
+$env:SENTRY_DSN = "https://{id_here}.ingest.sentry.io/{project_here}"
+rails server
+```

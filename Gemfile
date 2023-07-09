@@ -81,3 +81,6 @@ gem 'rack-cors'
 gem 'rack-timeout'
 
 gem 'rack-proxy'
+
+gem "sentry-ruby"
+gem "sentry-rails"
