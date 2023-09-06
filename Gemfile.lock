@@ -130,6 +130,8 @@ GEM
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-proxy (0.7.6)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack-timeout (0.6.0)
@@ -220,6 +222,7 @@ DEPENDENCIES
   pg
   puma (~> 4.3.11)
   rack-cors
+  rack-proxy
   rack-timeout
   rails
   sassc-rails
@@ -233,7 +236,7 @@ DEPENDENCIES
   uuidtools
 
 RUBY VERSION
-   ruby 2.7.5p203
+   ruby 2.7.7p221
 
 BUNDLED WITH
-   2.3.8
+   2.3.9
