@@ -14,9 +14,6 @@ RUN bundle config set --local without 'development test' && bundle install --job
 # Copy the rest of the application files
 COPY . .
 
-# Set the Rails environment
-ENV RAILS_ENV=production
-
 # Precompile assets
 RUN bundle exec rails assets:precompile RAILS_ENV=production
 
