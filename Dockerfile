@@ -1,7 +1,6 @@
 # Use a smaller base image
-FROM ruby:2.7.4-slim AS base
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    nodejs \
+FROM ruby:2.7.7-slim AS base
+RUN apt-get update -q && apt-get install -y --no-install-recommends \
     build-essential
 
 # Set the working directory
@@ -18,9 +17,10 @@ COPY . .
 RUN bundle exec rails assets:precompile RAILS_ENV=production
 
 # Use a smaller base image for the final container
-FROM ruby:2.7.4-slim
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    nodejs
+FROM ruby:2.7.7-slim
+
+# Add non-root user
+RUN useradd -ms /bin/bash safeuser
 
 # Set the working directory
 WORKDIR /app
@@ -29,7 +29,10 @@ WORKDIR /app
 COPY --from=base /app /app
 COPY --from=base /usr/local/bundle /usr/local/bundle
 
-EXPOSE 3000
+# Switch to non-root user
+USER safeuser
+
+EXPOSE 8080
 
 # Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "127.0.0.1", "-p", "8080"]
