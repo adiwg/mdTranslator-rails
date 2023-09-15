@@ -38,7 +38,9 @@ RUN chown -R safeuser:safeuser /app/log /app/tmp
 # Switch to non-root user
 USER safeuser
 
+ENV RAILS_SERVE_STATIC_FILES=true
+
 EXPOSE 8080
 
 # Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "production"]
+# CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "production"]
