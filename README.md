@@ -42,7 +42,7 @@ Click on "demo" link to do some metadata translations
 
 ## Bonus! Forget all that and just run a Docker
 
-docker run -d -p 8080:8080 mdtoolkit/mdtranslator-rails:2.18.2
+docker run -d -e SECRET_KEY_BASE=<your base key> -e RAILS_SERVE_STATIC_FILES=true -p 8080:8080 mdtoolkit/mdtranslator-rails:2.18.2
 
 ## Other
 
