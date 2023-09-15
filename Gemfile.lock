@@ -225,7 +225,7 @@ PLATFORMS
 DEPENDENCIES
   adiwg-mdcodes (~> 2.8)
   adiwg-mdjson_schemas (~> 2.8)
-  adiwg-mdtranslator (~> 2.18)
+  adiwg-mdtranslator (~> 2.18.2)
   bootsnap (>= 1.4.2)
   builder
   coderay
