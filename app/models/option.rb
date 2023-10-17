@@ -12,7 +12,7 @@ class Option
    def self.getOptionList
       {
          reader: %w[mdJson sbJson fgdc],
-         writer: %w[iso19115_2 iso19110 html mdJson sbJson fgdc simple_html],
+         writer: %w[iso19115_3 iso19115_2 iso19110 html simple_html mdJson sbJson fgdc],
          format: %w[auto plain json xml],
          validate: %w[none normal strict],
          showAllTags: %w[true false],
