@@ -30,4 +30,7 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   # Raises error for missing translations
+
+  # Clear hosts to allow all
+  config.hosts.clear
 end
