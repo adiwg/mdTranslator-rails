@@ -19,7 +19,7 @@ end
 #   gem 'pg'
 # end
 
-gem 'puma', '~> 4.3.11'
+gem 'puma', '~> 5.6.7'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -53,11 +53,11 @@ gem 'uuidtools'
 # Use json_schema as schema validator
 gem 'json-schema'
 # Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '~> 2.8'
+gem 'adiwg-mdjson_schemas', '2.8.1'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 2.18.2'
+gem 'adiwg-mdtranslator', '2.18.2'
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '~> 2.8'
+gem 'adiwg-mdcodes', '2.8.4'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
