@@ -14,7 +14,7 @@ xml = Builder::XmlMarkup.new(indent: 3)
 # document head
 xml.instruct! :xml, encoding: 'UTF-8'
 xml.comment!('The codelist is supported by the Alaska Data Integration working group (ADIwg)')
-xml.comment!('The codelist conatins all ISO 19115-2, ISO 19115-3, and ADIwg codes')
+xml.comment!('The codelist conatins all ISO 19115-1, 19115-2, ISO 19115-3, and ADIwg codes')
 xml.tag!('CT_CodelistCatalogue',{'xmlns:gco' => 'http://www.isotc211.org/2005/gco',
 							 'xmlns:gml' => 'http://www.opengis.net/gml/3.2',
 							 'xmlns:gmx' => 'http://www.isotc211.org/2005/gmx',
