@@ -55,8 +55,8 @@ gem 'json-schema'
 # Alaska Data Integration working group schema definition
 gem 'adiwg-mdjson_schemas', '2.8.1'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', path: './mdTranslator'
-# gem 'adiwg-mdtranslator', '2.18.2'
+# gem 'adiwg-mdtranslator', path: './mdTranslator'
+gem 'adiwg-mdtranslator', '2.18.2'
 # Alaska Data Integration working group metadata code lists
 gem 'adiwg-mdcodes', '2.8.4'
 
