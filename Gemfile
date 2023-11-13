@@ -14,11 +14,6 @@ group :development do
   gem 'sqlite3'
 end
 
-#for heroku
-# group :production do
-#   gem 'pg'
-# end
-
 gem 'puma', '~> 4.3.11'
 
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -53,24 +48,15 @@ gem 'uuidtools'
 # Use json_schema as schema validator
 gem 'json-schema'
 # Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '~> 2.8.0'
+gem 'adiwg-mdjson_schemas', '2.8.1'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '~> 2.18.2'
+gem 'adiwg-mdtranslator', '2.18.2'
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '~> 2.8.4'
+gem 'adiwg-mdcodes', '2.8.4'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
 gem 'coderay'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # added x64_mingw for Windows x64 operating systems
