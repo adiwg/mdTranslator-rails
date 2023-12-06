@@ -1,5 +1,6 @@
 # Use a smaller base image
 FROM ruby:2.7.7-slim AS base
+
 RUN apt-get update -q && apt-get install -y --no-install-recommends \
     nodejs \
     build-essential
@@ -32,15 +33,7 @@ WORKDIR /app
 COPY --from=base /app /app
 COPY --from=base /usr/local/bundle /usr/local/bundle
 
-# Change owner to safeuser
-RUN chown -R safeuser:safeuser /app/log /app/tmp
-
-# Switch to non-root user
-USER safeuser
-
-ENV RAILS_SERVE_STATIC_FILES=true
-
 EXPOSE 8080
 
 # Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "production"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-e", "production", "-p", "8080"]
