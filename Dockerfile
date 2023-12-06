@@ -1,6 +1,7 @@
 # Use a smaller base image
 FROM ruby:2.7.7-slim AS base
-RUN apt-get update && apt-get install -y --no-install-recommends \
+
+RUN apt-get update -q && apt-get install -y --no-install-recommends \
     nodejs \
     build-essential
 
@@ -19,7 +20,7 @@ RUN bundle exec rails assets:precompile RAILS_ENV=production
 
 # Use a smaller base image for the final container
 FROM ruby:2.7.7-slim
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -q && apt-get install -y --no-install-recommends \
     nodejs
 
 # Set the working directory

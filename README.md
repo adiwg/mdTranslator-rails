@@ -42,7 +42,13 @@ Click on "demo" link to do some metadata translations
 
 ## Bonus! Forget all that and just run a Docker
 
-docker run -d -p 3000:3000 derekjwilliams/mdtranslator-rails:latest
+docker run -d -e SECRET_KEY_BASE=<your base key> -e RAILS_SERVE_STATIC_FILES=true -p 8080:8080 mdtoolkit/mdtranslator-rails:2.18.2
+
+One way you can generate a secret base key is with the following command
+
+`RAILS_ENV=production rake secret`
+
+## Other
 
 `bundle` to install
 `bundle exec rails server` to run the server
