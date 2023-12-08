@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local without 'development test' && bundle install --jobs 4 --retry 3
+RUN gem install bundler:2.4.21 && bundle config set --local without 'development test' && bundle install --jobs 4 --retry 3
 
 # Copy the rest of the application files
 COPY . .
@@ -22,9 +22,6 @@ RUN bundle exec rails assets:precompile RAILS_ENV=production
 FROM ruby:2.7.7-slim
 RUN apt-get update -q && apt-get install -y --no-install-recommends \
     nodejs
-
-# Add non-root user
-RUN useradd -ms /bin/bash safeuser
 
 # Set the working directory
 WORKDIR /app
