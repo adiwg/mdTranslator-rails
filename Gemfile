@@ -19,7 +19,7 @@ end
 #   gem 'pg'
 # end
 
-gem 'puma', '~> 5.6.7'
+gem 'puma', '~> 6.4.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
