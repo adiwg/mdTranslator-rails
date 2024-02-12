@@ -2,6 +2,7 @@
 FROM ruby:2.7.7-slim AS base
 
 RUN apt-get update -q && apt-get install -y --no-install-recommends \
+    git \
     nodejs \
     build-essential
 
