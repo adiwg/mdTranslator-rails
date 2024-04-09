@@ -39,7 +39,7 @@ GEM
     adiwg-mdcodes (2.9.2)
       json (~> 2.0)
     adiwg-mdjson_schemas (2.9.1)
-    adiwg-mdtranslator (2.19.0.pre.beta.7)
+    adiwg-mdtranslator (2.20.0.pre.beta.0)
       adiwg-mdcodes (= 2.9.2)
       adiwg-mdjson_schemas (= 2.9.1)
       builder (~> 3.2)
@@ -110,7 +110,7 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.15.4)
+    nokogiri (1.15.6)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     nokogiri (1.15.6-x64-mingw32)
@@ -205,7 +205,7 @@ PLATFORMS
 DEPENDENCIES
   adiwg-mdcodes (= 2.9.2)
   adiwg-mdjson_schemas (= 2.9.1)
-  adiwg-mdtranslator (= 2.19.0.pre.beta.7)
+  adiwg-mdtranslator (= 2.20.0.pre.beta.0)
   bootsnap (>= 1.4.2)
   builder
   coderay
