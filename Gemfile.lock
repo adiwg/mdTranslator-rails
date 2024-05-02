@@ -60,10 +60,10 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     adiwg-mdcodes (2.9.3.pre.beta.3)
       json (~> 2.0)
-    adiwg-mdjson_schemas (2.9.2.pre.beta.19)
-    adiwg-mdtranslator (2.19.0.pre.beta.10)
+    adiwg-mdjson_schemas (2.9.2.pre.beta.20)
+    adiwg-mdtranslator (2.19.0.pre.beta.11)
       adiwg-mdcodes (= 2.9.3.pre.beta.3)
-      adiwg-mdjson_schemas (= 2.9.2.pre.beta.19)
+      adiwg-mdjson_schemas (= 2.9.2.pre.beta.20)
       builder (~> 3.2)
       coderay (~> 1.1)
       jbuilder (~> 2.5)
@@ -240,8 +240,8 @@ PLATFORMS
 
 DEPENDENCIES
   adiwg-mdcodes (= 2.9.3.pre.beta.3)
-  adiwg-mdjson_schemas (= 2.9.2.pre.beta.19)
-  adiwg-mdtranslator (= 2.19.0.pre.beta.10)
+  adiwg-mdjson_schemas (= 2.9.2.pre.beta.20)
+  adiwg-mdtranslator (= 2.19.0.pre.beta.11)
   bootsnap (>= 1.4.2)
   builder
   coderay
