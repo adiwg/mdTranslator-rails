@@ -61,7 +61,7 @@ GEM
     adiwg-mdcodes (2.10.0)
       json (~> 2.0)
     adiwg-mdjson_schemas (2.9.5)
-    adiwg-mdtranslator (2.19.0.pre.beta.25)
+    adiwg-mdtranslator (2.19.0.pre.beta.31)
       adiwg-mdcodes (= 2.10.0)
       adiwg-mdjson_schemas (= 2.9.5)
       builder (~> 3.2)
@@ -241,7 +241,7 @@ PLATFORMS
 DEPENDENCIES
   adiwg-mdcodes (= 2.10.0)
   adiwg-mdjson_schemas (= 2.9.5)
-  adiwg-mdtranslator (= 2.19.0.pre.beta.25)
+  adiwg-mdtranslator (= 2.19.0.pre.beta.31)
   bootsnap (>= 1.4.2)
   builder
   coderay
