@@ -58,12 +58,12 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    adiwg-mdcodes (2.10.0)
+    adiwg-mdcodes (2.10.1)
       json (~> 2.0)
-    adiwg-mdjson_schemas (2.9.5)
-    adiwg-mdtranslator (2.20.0.pre.beta.5)
-      adiwg-mdcodes (= 2.10.0)
-      adiwg-mdjson_schemas (= 2.9.5)
+    adiwg-mdjson_schemas (2.10.1)
+    adiwg-mdtranslator (2.20.0.pre.beta.10)
+      adiwg-mdcodes (= 2.10.1)
+      adiwg-mdjson_schemas (= 2.10.1)
       builder (~> 3.2)
       coderay (~> 1.1)
       jbuilder (~> 2.5)
@@ -224,9 +224,9 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  adiwg-mdcodes (= 2.10.0)
-  adiwg-mdjson_schemas (= 2.9.5)
-  adiwg-mdtranslator (= 2.20.0.pre.beta.5)
+  adiwg-mdcodes (= 2.10.1)
+  adiwg-mdjson_schemas (= 2.10.1)
+  adiwg-mdtranslator (= 2.20.0.pre.beta.10)
   bootsnap (>= 1.4.2)
   builder
   coderay

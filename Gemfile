@@ -54,11 +54,11 @@ gem 'uuidtools'
 gem 'json-schema'
 
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '2.10.0'
+gem 'adiwg-mdcodes', '2.10.1'
 # Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '2.9.5'
+gem 'adiwg-mdjson_schemas', '2.10.1'
 # Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '2.20.0.pre.beta.5'
+gem 'adiwg-mdtranslator', '2.20.0.pre.beta.10'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
