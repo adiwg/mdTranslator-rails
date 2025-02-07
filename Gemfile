@@ -19,7 +19,7 @@ end
 #   gem 'pg'
 # end
 
-gem 'puma', '~> 5.6.7'
+gem 'puma', '~> 6.4.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -41,7 +41,7 @@ gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 1.0.0.rc', group: :doc
 
-# gems required for ADIwg mdTranslator ...
+# gems required for ADIwg
 # Use json as JSON
 gem 'json'
 # Use build as XML constructor
@@ -52,12 +52,13 @@ gem 'thor'
 gem 'uuidtools'
 # Use json_schema as schema validator
 gem 'json-schema'
-# Alaska Data Integration working group schema definition
-gem 'adiwg-mdjson_schemas', '2.8.1'
-# Alaska Data Integration working group metadata translator
-gem 'adiwg-mdtranslator', '2.18.4'
+
 # Alaska Data Integration working group metadata code lists
-gem 'adiwg-mdcodes', '2.8.4'
+gem 'adiwg-mdcodes', '2.10.1'
+# Alaska Data Integration working group schema definition
+gem 'adiwg-mdjson_schemas', '2.10.1'
+# Alaska Data Integration working group metadata translator
+gem 'adiwg-mdtranslator', '2.20.0.pre.beta.10'
 
 # Use kramdown to render markdown with help of coderay
 gem 'kramdown'
