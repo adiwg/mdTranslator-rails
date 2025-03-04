@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Tag & Release Version
 
 on:
   push:
